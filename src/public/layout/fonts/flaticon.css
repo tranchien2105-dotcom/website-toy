@@ -1,0 +1,56 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 12/05/2017 16:39
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-computer-1:before { content: "\f100"; }
+.flaticon-technology:before { content: "\f101"; }
+.flaticon-watch-with-blank-face:before { content: "\f102"; }
+.flaticon-wristwatch:before { content: "\f103"; }
+.flaticon-keyboard-1:before { content: "\f104"; }
+.flaticon-commerce:before { content: "\f105"; }
+.flaticon-cash:before { content: "\f106"; }
+.flaticon-laptop:before { content: "\f107"; }
+.flaticon-smartphone:before { content: "\f108"; }
+.flaticon-gamepad-1:before { content: "\f109"; }
+.flaticon-notebook:before { content: "\f10a"; }
+.flaticon-notebook-computer:before { content: "\f10b"; }
+.flaticon-shopping:before { content: "\f10c"; }
+.flaticon-arrows:before { content: "\f10d"; }
+.flaticon-shopping-bag:before { content: "\f10e"; }
+.flaticon-business:before { content: "\f10f"; }
+.flaticon-delivery-truck-1:before { content: "\f110"; }
+.flaticon-operator:before { content: "\f111"; }
+.flaticon-delivery-truck:before { content: "\f112"; }
+.flaticon-gamepad:before { content: "\f113"; }
+.flaticon-computer:before { content: "\f114"; }
+.flaticon-cart:before { content: "\f115"; }
+.flaticon-keyboard:before { content: "\f116"; }
+.flaticon-telephone:before { content: "\f117"; }
+.flaticon-credit-card:before { content: "\f118"; }
