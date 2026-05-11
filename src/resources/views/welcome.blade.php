@@ -9,8 +9,8 @@
     <title>Tạp hoá MinhChien</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('layout/images/favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('layout/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('layout/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('layout/images/favicon.png') }}" type="image/x-icon">
 
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('layout/rs-plugin/css/settings.css') }}" media="screen" />
@@ -383,8 +383,8 @@
                         <li data-transition="random" data-slotamount="7" data-masterspeed="300"
                             data-saveperformance="off">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('layout/images/trans-bg.png') }}" alt="slider"
-                                data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                            <img src="{{ asset('layout/images/banner5.jpg') }}" alt="slider"
+                                data-bgposition="center" data-bgfit="cover" data-bgrepeat="no-repeat">
 
                         </li>
                     </ul>

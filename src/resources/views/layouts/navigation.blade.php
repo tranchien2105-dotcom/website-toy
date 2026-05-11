@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('layout.home') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
@@ -18,7 +18,11 @@
                     <x-nav-link :href="route('admin.products')" :active="request()->routeIs('admin.products')">
                         {{ __('Products') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.categories')" :active="request()->routeIs('admin.categories')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
                 </div>
+                
             </div>
 
             <!-- Settings Dropdown -->
