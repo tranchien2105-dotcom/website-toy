@@ -11,4 +11,5 @@ if (!function_exists('getCategories')) {
             ->distinct()
             ->get();
     }
+
 }

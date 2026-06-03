@@ -11,7 +11,8 @@ class Category extends Model
         'name',
         'slug',
         'parent_id',
-        'description'
+        'description',
+        'status',
     ];
 
     // category cha
@@ -24,5 +25,10 @@ class Category extends Model
     public function children()
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
     }
 }

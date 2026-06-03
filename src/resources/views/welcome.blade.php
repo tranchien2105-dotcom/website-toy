@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="M_Adnan" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Document Title -->
     <title>Tạp hoá MinhChien</title>
 
@@ -64,52 +65,91 @@
         <header>
             <div class="container">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="{{ route('layout.home') }}">
                         <img src="{{ asset('layout/images/logoNewv2.png') }}" alt="Tạp Hoá MinhChien"
                             style="width: 220px; height:66px">
                     </a>
                 </div>
                 <div class="search-cate">
-                    <select class="selectpicker">
-                        <option> All Categories</option>
-                        <option> Home Audio & Theater</option>
-                        <option> TV & Video</option>
-                        <option> Camera, Photo & Video</option>
-                        <option> Cell Phones & Accessories</option>
-                        <option> Headphones</option>
-                        <option> Video Games</option>
-                        <option> Bluetooth & Wireless </option>
-                        <option> Gaming Console</option>
-                        <option> Computers & Tablets</option>
-                        <option> Monitors </option>
+                    <select class="selectpicker" name="category_id">
+                        <option value="">Tất cả danh mục</option>
+
+                        @php
+                            $categories = getCategories();
+                        @endphp
+
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
                     </select>
-                    <input type="search" placeholder="Search entire store here...">
+                    <input type="search" placeholder="Tìm kiếm sản phẩm...">
                     <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
                 </div>
 
                 <!-- Cart Part -->
+                @php
+                    $cartItems = session('cart', []);
+                    $totalQty = 0;
+                    $grandTotal = 0;
+
+                    foreach ($cartItems as $item) {
+                        $totalQty += $item['quantity'];
+                        $grandTotal += $item['price'] * $item['quantity'];
+                    }
+                @endphp
+
                 <ul class="nav navbar-right cart-pop">
-                    <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false"><span class="itm-cont">3</span> <i
-                                class="flaticon-shopping-bag"></i> <strong>Giỏ hàng</strong> <br>
-                            <span>(3) Sản phẩm - 500.000₫</span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="media-left"> <a href="#." class="thumb"> <img
-                                            src="{{ asset('layout/images/item-img-1-1.jpg') }}" class="img-responsive"
-                                            alt=""> </a> </div>
-                                <div class="media-body"> <a href="#." class="tittle">Funda Para Ebook 7" 128GB full
-                                        HD</a> <span>250 x 1</span> </div>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">
+
+                            <span class="itm-cont">{{ $totalQty }}</span>
+                            <i class="flaticon-shopping-bag"></i>
+                            <strong>Giỏ hàng</strong> <br>
+
+                            <span>
+                                ({{ $totalQty }}) Sản phẩm -
+                                {{ number_format($grandTotal, 0, ',', '.') }}₫
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu mini-cart-list">
+
+                            @forelse ($cartItems as $item)
+                                <li>
+                                    <div class="media-left">
+                                        <a href="#" class="thumb">
+                                            <img src="{{ asset('layout/images/products/' . $item['image']) }}"
+                                                class="img-responsive" alt="{{ $item['name'] }}">
+                                        </a>
+                                    </div>
+
+                                    <div class="media-body">
+                                        <a href="#" class="tittle">
+                                            {{ $item['name'] }}
+                                        </a>
+
+                                        <span>
+                                            {{ number_format($item['price'], 0, ',', '.') }}₫
+                                            x {{ $item['quantity'] }}
+                                        </span>
+                                    </div>
+                                </li>
+
+                            @empty
+                                <li class="text-center" style="padding:15px;">
+                                    Giỏ hàng trống
+                                </li>
+                            @endforelse
+
+                            <li class="btn-cart">
+                                <a href="{{ route('layout.cart') }}" class="btn-round">
+                                    Xem giỏ hàng
+                                </a>
                             </li>
-                            <li>
-                                <div class="media-left"> <a href="#." class="thumb"> <img
-                                            src="{{ asset('layout/images/item-img-1-2.jpg') }}" class="img-responsive"
-                                            alt=""> </a> </div>
-                                <div class="media-body"> <a href="#." class="tittle">Funda Para Ebook 7" full HD</a>
-                                    <span>250 x 1</span>
-                                </div>
-                            </li>
-                            <li class="btn-cart"> <a href="#." class="btn-round">View Cart</a> </li>
+
                         </ul>
                     </li>
                 </ul>
@@ -353,44 +393,6 @@
         </header>
 
         <!-- Slid Sec -->
-        <section class="slid-sec with-bg-wide">
-            <!-- Main Slider Start -->
-            <div class="tp-banner-container">
-                <div class="tp-banner-full">
-                    <ul>
-
-                        <!-- SLIDE  -->
-                        <li data-transition="random" data-slotamount="7" data-masterspeed="300"
-                            data-saveperformance="off">
-                            <!-- MAIN IMAGE -->
-                            <img src="{{ asset('layout/images/banner2.jpg') }}" alt="slider"
-                                data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-
-                        </li>
-
-                        <!-- SLIDE  -->
-                        <li data-transition="random" data-slotamount="7" data-masterspeed="300"
-                            data-saveperformance="off">
-                            <!-- MAIN IMAGE -->
-                            <img src="{{ asset('layout/images/banner4.png') }}" alt="slider"
-                                data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-
-                            <!-- LAYER NR. 1 -->
-
-                        </li>
-
-                        <!-- SLIDE  -->
-                        <li data-transition="random" data-slotamount="7" data-masterspeed="300"
-                            data-saveperformance="off">
-                            <!-- MAIN IMAGE -->
-                            <img src="{{ asset('layout/images/banner5.jpg') }}" alt="slider"
-                                data-bgposition="center" data-bgfit="cover" data-bgrepeat="no-repeat">
-
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
 
         <!-- Content -->
         <div id="content">
@@ -508,6 +510,38 @@
     <script type="text/javascript" src="{{ asset('layout/rs-plugin/js/jquery.tp.t.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('layout/rs-plugin/js/jquery.tp.min.js') }}"></script>
     <script src="{{ asset('layout/js/main.js') }}"></script>
+    <script>
+        $(document).on('click', '.add-cart-btn', function (e) {
+
+            e.preventDefault();
+
+            let id = $(this).data('id');
+
+            $.ajax({
+                url: '/cart/add/' + id,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+
+                success: function (res) {
+
+                    $('.itm-cont').text(res.qty);
+
+                    $('.cart-pop strong')
+                        .next('br')
+                        .next('span')
+                        .html('(' + res.qty + ') Sản phẩm - ' + res.total);
+
+
+                    $('.mini-cart-list').load(location.href + ' .mini-cart-list > *');
+
+                    alert('Đã thêm vào giỏ hàng');
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>

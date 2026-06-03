@@ -39,6 +39,20 @@ services:
     networks:
       - website_toy
 
+  node:
+    image: node:22
+    container_name: website_toy_node
+    working_dir: /var/www
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - website_toy
+
 networks:
   website_toy:
 

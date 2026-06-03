@@ -459,10 +459,10 @@ section {
 	z-index: -1;
 	top: -50px;
 }
-.with-bg-wide {
+/* .with-bg-wide {
 	background: url(../images/main-bg-slider-wide.jpg) center center no-repeat;
 	background-size: cover;
-}
+} */
 /*=======================================================
 			Big Nac
 ========================================================*/

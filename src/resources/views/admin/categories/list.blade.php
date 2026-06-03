@@ -37,14 +37,15 @@
                                 function renderCategory($categories, $parentId = null, $level = 0, &$no = 1)
                                 {
                                     foreach ($categories->where('parent_id', $parentId) as $category) {
+
                                         echo '<tr>';
 
                                         echo '<td>' . $no++ . '</td>';
 
                                         echo '<td>
-                                            <a href="' . route('admin.categories.edit', $category->id) . '"
-                                            class="text-decoration-none text-dark fw-semibold d-inline-block"
-                                            style="padding-left:' . ($level * 25) . 'px;">';
+                                                <a href="' . route('admin.categories.edit', $category->id) . '"
+                                                class="text-decoration-none text-dark fw-semibold d-inline-block"
+                                                style="padding-left:' . ($level * 25) . 'px;">';
 
                                         if ($level > 0) {
                                             echo '└─ ';
@@ -54,25 +55,30 @@
 
                                         echo '<td>' . ($category->parent?->name ?? '--- Root Category ---') . '</td>';
 
-                                        echo '<td><span class="badge bg-success">Active</span></td>';
+                                        // STATUS
+                                        if ($category->status == 1) {
+                                            echo '<td><span class="badge bg-success">Active</span></td>';
+                                        } else {
+                                            echo '<td><span class="badge bg-secondary">Inactive</span></td>';
+                                        }
 
                                         echo '<td>
-                                            <a href="' . route('admin.categories.edit', $category->id) . '"
-                                            class="btn btn-sm btn-warning me-1">Edit</a>
+                                                <a href="' . route('admin.categories.edit', $category->id) . '"
+                                                class="btn btn-sm btn-warning me-1">Edit</a>
 
-                                            <form action="' . route('admin.categories.delete', $category->id) . '"
-                                                method="POST"
-                                                class="d-inline">
-                                                ' . csrf_field() . '
-                                                <input type="hidden" name="_method" value="DELETE">
+                                                <form action="' . route('admin.categories.delete', $category->id) . '"
+                                                    method="POST"
+                                                    class="d-inline">
+                                                    ' . csrf_field() . '
+                                                    <input type="hidden" name="_method" value="DELETE">
 
-                                                <button type="submit"
-                                                    onclick=""
-                                                    class="btn btn-sm btn-danger">
-                                                    Delete
-                                                </button>
-                                            </form>
-                                        </td>';
+                                                    <button type="submit"
+                                                        onclick="return confirm(\'Delete this category?\')"
+                                                        class="btn btn-sm btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </td>';
 
                                         echo '</tr>';
 
