@@ -5,9 +5,12 @@ import AuthLayout from '../layouts/AuthLayout.vue'
 
 import Home from '../pages/Home.vue'
 import Products from '../pages/Products.vue'
+import Banners from '../pages/Banners.vue'
 import CreateProduct from '../pages/CreateProduct.vue'
 import ProductDetail from '../pages/ProductDetail.vue'
 import LoginView from '../pages/LoginView.vue'
+import BannerDetail from '../pages/BannerDetail.vue'
+import AddBanner from '../pages/AddBanner.vue'
 
 const routes = [
 
@@ -36,6 +39,19 @@ const routes = [
             {
                 path: 'products/:id',
                 component: ProductDetail,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: '/banners/create',
+                component: AddBanner
+            },
+            {
+                path: 'banners',
+                component: Banners,
+                meta: { requiresAuth: true }
+            }, {
+                path: 'banners/:id',
+                component: BannerDetail,
                 meta: { requiresAuth: true }
             }
         ]

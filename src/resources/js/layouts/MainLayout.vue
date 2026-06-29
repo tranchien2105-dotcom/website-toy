@@ -8,6 +8,7 @@
             <nav>
                 <router-link to="/home">Home</router-link>
                 <router-link to="/products">Products</router-link>
+                <router-link to="/banners">Banners</router-link>
                 <router-link to="/products/create">Create</router-link>
             </nav>
 
