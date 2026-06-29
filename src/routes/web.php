@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LayoutController::class, 'home'])
     ->name('layout.home');
-    
+
 Route::post('/cart/add/{id}', [LayoutController::class, 'addCart'])
     ->name('cart.add');
 
@@ -72,7 +72,7 @@ Route::get('/dashboard', function () {
 
 //             Route::get('/', [CategoryAdminController::class, 'listCategories'])
 //                 ->name('admin.categories');
-            
+
 //             Route::get('/create', [CategoryAdminController::class, 'createCategory'])
 //                 ->name('admin.categories.create');
 //             Route::post('/', [CategoryAdminController::class, 'addCategory'])
@@ -125,9 +125,9 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin', function () {
+Route::get('/{any}', function () {
     return view('app');
-});
+})->where('any', '.*');
 
 require __DIR__ . '/auth.php';
 

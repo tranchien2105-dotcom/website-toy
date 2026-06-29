@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BannerAdminController extends Controller
 {
@@ -11,6 +12,162 @@ class BannerAdminController extends Controller
     {
         $banners = Banner::all();
         return view('admin.banners.list', compact('banners'));
+    }
+
+    public function listBannerApi(Request $request)
+    {
+        $query = Banner::query();
+
+        // Search theo title
+        if ($request->search) {
+            $query->where(
+                'title',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
+
+        // Sort
+        switch ($request->sort_by) {
+
+            case 'title_asc':
+                $query->orderBy('title', 'asc');
+                break;
+
+            case 'title_desc':
+                $query->orderBy('title', 'desc');
+                break;
+
+            case 'position_asc':
+                $query->orderBy('position', 'asc');
+                break;
+
+            default:
+                $query->latest();
+                break;
+        }
+
+        // Pagination
+        $banners = $query->paginate(
+            $request->per_page ?? 5
+        );
+
+        return response()->json($banners);
+    }
+
+
+    public function getBannerApi($id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        return response()->json($banner);
+    }
+
+
+
+    public function updateBannerApi(Request $request, $id)
+    {
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Validate
+            |--------------------------------------------------------------------------
+            */
+
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'link_url' => 'nullable|string|max:500',
+                'type' => 'required|string|max:50',
+                'device' => 'required|string|max:50',
+                'status' => 'required|integer',
+                'position' => 'nullable|integer',
+                'start_at' => 'nullable|date',
+                'end_at' => 'nullable|date',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Find Banner
+            |--------------------------------------------------------------------------
+            */
+
+            $banner = Banner::findOrFail($id);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Upload New Image
+            |--------------------------------------------------------------------------
+            */
+
+            $imageName = $banner->image_url;
+
+            if ($request->hasFile('image')) {
+
+                // Xóa ảnh cũ
+                $oldPath = public_path(
+                    'layout/images/banners/' . $banner->image_url
+                );
+
+                if (
+                    $banner->image_url &&
+                    File::exists($oldPath)
+                ) {
+                    File::delete($oldPath);
+                }
+
+                // Upload ảnh mới
+                $file = $request->file('image');
+
+                $imageName =
+                    time() . '_' .
+                    $file->getClientOriginalName();
+
+                $file->move(
+                    public_path('layout/images/banners'),
+                    $imageName
+                );
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Banner
+            |--------------------------------------------------------------------------
+            */
+
+            $banner->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'image_url' => $imageName,
+                'link_url' => $request->link_url,
+                'type' => $request->type,
+                'device' => $request->device,
+                'status' => $request->status,
+                'position' => $request->position ?? 0,
+                'start_at' => $request->start_at,
+                'end_at' => $request->end_at
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+                'message' => 'Cập nhật banner thành công',
+                'data' => $banner
+            ], 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'message' => 'Có lỗi xảy ra',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function createBanner()
@@ -70,7 +227,7 @@ class BannerAdminController extends Controller
     public function updateBanner(Request $request, $id)
     {
         $banner = Banner::findOrFail($id);
-       
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -83,7 +240,7 @@ class BannerAdminController extends Controller
             'status' => 'required|boolean',
             'position' => 'required|integer',
         ]);
-    
+
         if ($request->hasFile('image')) {
             // Xóa file ảnh cũ nếu tồn tại
             if ($banner->image_url) {
@@ -136,5 +293,93 @@ class BannerAdminController extends Controller
         return redirect()
             ->route('admin.banners')
             ->with('success', 'Banner deleted successfully.');
+    }
+
+    public function storeBannerApi(Request $request)
+    {
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Validate
+            |--------------------------------------------------------------------------
+            */
+
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'link_url' => 'nullable|string|max:500',
+                'type' => 'required|string|max:50',
+                'device' => 'required|string|max:50',
+                'status' => 'required|integer',
+                'position' => 'nullable|integer',
+                'start_at' => 'nullable|date',
+                'end_at' => 'nullable|date',
+
+                // create thì bắt buộc có ảnh
+                'image' => 'required|image|mimes:jpg,jpeg,png,webp'
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Upload Image
+            |--------------------------------------------------------------------------
+            */
+
+            $imageName = null;
+
+            if ($request->hasFile('image')) {
+
+                $file = $request->file('image');
+
+                $imageName =
+                    time() . '_' .
+                    $file->getClientOriginalName();
+
+                $file->move(
+                    public_path('layout/images/banners'),
+                    $imageName
+                );
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Create Banner
+            |--------------------------------------------------------------------------
+            */
+
+            $banner = Banner::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'image_url' => $imageName,
+                'link_url' => $request->link_url,
+                'type' => $request->type,
+                'device' => $request->device,
+                'status' => $request->status,
+                'position' => $request->position ?? 0,
+                'start_at' => $request->start_at,
+                'end_at' => $request->end_at,
+
+                // mặc định chưa click
+                'click_count' => 0
+            ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Response
+            |--------------------------------------------------------------------------
+            */
+
+            return response()->json([
+                'message' => 'Thêm banner thành công',
+                'data' => $banner
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Có lỗi xảy ra',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

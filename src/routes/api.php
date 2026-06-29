@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerAdminController;
 use App\Http\Controllers\CategoryAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -108,4 +109,29 @@ Route::prefix('categories')
             '/',
             [CategoryAdminController::class, 'listCategoriesApi']
         )->name('list');
+    });
+
+
+Route::prefix('banners')
+    ->name('api.banners.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [BannerAdminController::class, 'listBannerApi']
+        )->name('list');
+
+        Route::get(
+            '/{id}',
+            [BannerAdminController::class, 'getBannerApi']
+        )->name('show');
+
+        Route::put(
+            '/{id}',
+            [BannerAdminController::class, 'updateBannerApi']
+        )->name('update');
+
+        Route::post('/create', [BannerAdminController::class, 'storeBannerApi']);
+
+
     });

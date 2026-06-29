@@ -28,9 +28,7 @@ class LayoutController extends Controller
             ->take(6)
             ->get();
 
-        $banners = Banner::where('status', 1)
-            ->where('start_at', '<=', now())
-            ->where('end_at', '>=', now())
+        $banners = Banner::where('status', 1)   
             ->orderBy('position', 'asc')
             ->get();
 
