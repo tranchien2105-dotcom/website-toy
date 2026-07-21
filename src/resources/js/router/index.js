@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import MainLayout from '../layouts/MainLayout.vue'
 import AuthLayout from '../layouts/AuthLayout.vue'
-
 import Home from '../pages/Home.vue'
 import Products from '../pages/Products.vue'
 import Banners from '../pages/Banners.vue'
@@ -24,6 +23,7 @@ const routes = [
     {
         path: '/',
         component: MainLayout,
+        redirect: '/home',
         children: [
             {
                 path: 'home',
@@ -46,14 +46,16 @@ const routes = [
                 meta: { requiresAuth: true }
             },
             {
-                path: '/banners/create',
-                component: AddBanner
-            },
-            {
                 path: 'banners',
                 component: Banners,
                 meta: { requiresAuth: true }
-            }, {
+            },
+            {
+                path: 'banners/create',
+                component: AddBanner,
+                meta: { requiresAuth: true }
+            },
+            {
                 path: 'banners/:id',
                 component: BannerDetail,
                 meta: { requiresAuth: true }
@@ -77,9 +79,12 @@ const routes = [
                 path: 'categories/:id',
                 component: CategoryDetail,
                 meta: { requiresAuth: true }
-            }
+            },
+
         ]
     },
+
+
 
     // ======================
     // LOGIN
@@ -114,14 +119,18 @@ router.beforeEach((to) => {
 
     const token = localStorage.getItem('token')
 
-    // ❌ chưa login → chặn route cần auth
-    if (to.meta.requiresAuth && !token) {
+    // Chưa đăng nhập
+    if (!token && to.meta.requiresAuth) {
         return '/admin/login'
     }
 
-    // ❌ đã login → không cho vào login page
-    if (to.path === '/admin/login' && token) {
-        return '/'
+    // Đã đăng nhập nhưng vẫn vào login
+    if (token && to.path === '/admin/login') {
+        return '/home'
+    }
+
+    if (token && to.path === '/login') {
+        return '/home'
     }
 
     return true

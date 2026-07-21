@@ -60,6 +60,18 @@
 
             </nav>
 
+            <!-- User Info -->
+            <div v-if="user" class="user-info">
+                <div class="avatar">
+                    {{ user?.name?.charAt(0).toUpperCase() }}
+                </div>
+
+                <div v-if="!isCollapsed" class="user-detail">
+                    <div class="name">{{ user.name }}</div>
+                    <div class="email">{{ user.email }}</div>
+                </div>
+            </div>
+
         </aside>
 
         <!-- Content -->
@@ -71,10 +83,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from '../axios'
 
 const isCollapsed = ref(false)
 const showProductMenu = ref(true)
+
+const user = ref(null)
+const getProfile = async () => {
+    try {
+        const { data } = await axios.get('/api/profile')
+
+        user.value = data.user
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+onMounted(() => {
+    getProfile()
+})
 </script>
 
 <style lang="css" scoped>
@@ -95,7 +123,9 @@ const showProductMenu = ref(true)
     color: white;
     transition: all .3s ease;
     overflow: hidden;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, .15);
+
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar.collapsed {
@@ -134,6 +164,7 @@ const showProductMenu = ref(true)
 }
 
 .sidebar nav {
+    flex: 1;
     padding: 20px 12px;
     display: flex;
     flex-direction: column;
@@ -279,5 +310,49 @@ const showProductMenu = ref(true)
 .submenu a:hover {
     background: rgba(255, 255, 255, .06);
     color: white;
+}
+
+.user-info {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #3b82f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+}
+
+.user-detail {
+    overflow: hidden;
+}
+
+.name {
+    color: white;
+    font-weight: 600;
+}
+
+.email {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.sidebar.collapsed .user-detail {
+    display: none;
+}
+
+.sidebar.collapsed .user-info {
+    justify-content: center;
 }
 </style>

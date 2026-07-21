@@ -32,7 +32,7 @@ const login = async () => {
             response.data.token
         )
 
-        router.push('/dashboard')
+        router.push('/home')
 
     } catch (err) {
 
