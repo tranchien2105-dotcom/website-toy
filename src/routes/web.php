@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BannerAdminController;
-use App\Http\Controllers\CategoryAdminController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,14 +13,29 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LayoutController::class, 'home'])
     ->name('layout.home');
 
+Route::get('/products/{slug}', [LayoutController::class, 'detailProduct'])
+    ->name('layout.product.detail');
+
 Route::post('/cart/add/{id}', [LayoutController::class, 'addCart'])
     ->name('cart.add');
+
+Route::get('/checkout', [LayoutController::class, 'checkout'])
+    ->name('checkout');
+
+Route::post('/checkout/store', [LayoutController::class, 'storeCheckout'])
+    ->name('checkout.store');
 
 Route::get('/cart', [LayoutController::class, 'cart'])
     ->name('layout.cart');
 
+Route::post('/cart/update', [LayoutController::class, 'updateCart'])
+    ->name('layout.cart.update');
+
 Route::get('/cart/remove/{id}', [LayoutController::class, 'removeCart'])
     ->name('layout.cart.remove');
+
+Route::get('/order/success/{id}', [LayoutController::class, 'orderSuccess'])
+    ->name('order.success');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

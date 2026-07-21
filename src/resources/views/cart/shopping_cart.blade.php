@@ -2,48 +2,7 @@
 
 @section('main')
     <!-- Ship Process -->
-    <div class="ship-process padding-top-30 padding-bottom-30">
-        <div class="container">
-            <ul class="row">
-
-                <!-- Step 1 -->
-                <li class="col-sm-3 current">
-                    <div class="media-left"><i class="flaticon-shopping"></i></div>
-                    <div class="media-body">
-                        <span>Bước 1</span>
-                        <h6>Giỏ hàng</h6>
-                    </div>
-                </li>
-
-                <!-- Step 2 -->
-                <li class="col-sm-3">
-                    <div class="media-left"><i class="flaticon-business"></i></div>
-                    <div class="media-body">
-                        <span>Bước 2</span>
-                        <h6>Thanh toán</h6>
-                    </div>
-                </li>
-
-                <!-- Step 3 -->
-                <li class="col-sm-3">
-                    <div class="media-left"><i class="flaticon-delivery-truck"></i></div>
-                    <div class="media-body">
-                        <span>Bước 3</span>
-                        <h6>Giao hàng</h6>
-                    </div>
-                </li>
-
-                <!-- Step 4 -->
-                <li class="col-sm-3">
-                    <div class="media-left"><i class="fa fa-check"></i></div>
-                    <div class="media-body">
-                        <span>Bước 4</span>
-                        <h6>Xác nhận</h6>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+    @include('cart.ship_process', ['step' => 1])
 
     <!-- Shopping Cart -->
     <section class="shopping-cart padding-bottom-60">
@@ -76,8 +35,7 @@
                                         <a href="#">
                                             <img class="img-responsive"
                                                 src="{{ asset('layout/images/products/' . $item['image']) }}"
-                                                alt="{{ $item['name'] }}"
-                                                width="80">
+                                                alt="{{ $item['name'] }}" width="80">
                                         </a>
                                     </div>
 
@@ -87,17 +45,14 @@
                                 </div>
                             </td>
 
-                            <td class="text-center padding-top-60 price"
-                                data-price="{{ $item['price'] }}">
+                            <td class="text-center padding-top-60 price" data-price="{{ $item['price'] }}">
                                 {{ number_format($item['price'], 0, ',', '.') }}₫
                             </td>
 
                             <td class="text-center">
                                 <div class="quinty padding-top-20">
-                                    <input type="number"
-                                        class="qty-input"
-                                        value="{{ $item['quantity'] }}"
-                                        min="1">
+                                    <input type="number" class="qty-input" data-id="{{ $item['id'] }}"
+                                        value="{{ $item['quantity'] }}" min="1">
                                 </div>
                             </td>
 
@@ -151,7 +106,7 @@
                     Tiếp tục mua hàng
                 </a>
 
-                <a href="" class="btn-round">
+                <a href="{{ route('checkout') }}" class="btn-round">
                     Thanh toán
                 </a>
             </div>
@@ -160,32 +115,52 @@
     </section>
 
     <script>
-        function formatMoney(number) {
-            return new Intl.NumberFormat('vi-VN').format(number) + '₫';
+        function updateQty(input) {
+
+            let id = input.dataset.id;
+            let qty = parseInt(input.value);
+
+            if (qty < 1 || isNaN(qty)) {
+                qty = 1;
+                input.value = 1;
+            }
+
+            fetch("{{ route('layout.cart.update') }}", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+
+                body: JSON.stringify({
+                    id: id,
+                    quantity: qty
+                })
+
+            })
+                .then(res => res.json())
+                .then(data => {
+
+                    let row = input.closest(".cart-row");
+
+                    row.querySelector(".row-total").innerText = data.rowTotal;
+
+                    document.getElementById("grand-total").innerText = data.grandTotal;
+
+                });
+
         }
 
-        function updateCart() {
-            let grandTotal = 0;
+        document.querySelectorAll(".qty-input").forEach(function (input) {
 
-            document.querySelectorAll('.cart-row').forEach(function(row) {
-                let price = parseInt(row.querySelector('.price').dataset.price);
-                let qty = parseInt(row.querySelector('.qty-input').value);
+            input.addEventListener("change", function () {
 
-                if (qty < 1 || isNaN(qty)) qty = 1;
+                updateQty(this);
 
-                let total = price * qty;
-
-                row.querySelector('.qty-input').value = qty;
-                row.querySelector('.row-total').innerText = formatMoney(total);
-
-                grandTotal += total;
             });
 
-            document.getElementById('grand-total').innerText = formatMoney(grandTotal);
-        }
-
-        document.querySelectorAll('.qty-input').forEach(function(input) {
-            input.addEventListener('input', updateCart);
         });
     </script>
 @endsection

@@ -7,7 +7,7 @@ const router = useRouter()
 
 const products = ref([])
 
-const perPage = ref(5)
+const perPage = ref(6)
 
 const currentPage = ref(1)
 const lastPage = ref(1)
@@ -150,10 +150,6 @@ onMounted(() => {
 
                         <!-- Per Page -->
                         <select v-model="perPage" class="sort-select">
-                            <option :value="5">
-                                5
-                            </option>
-
                             <option :value="10">
                                 10
                             </option>
@@ -343,7 +339,7 @@ onMounted(() => {
 
 .search-input,
 .sort-select {
-    padding: 12px 14px;
+    padding: 12px 30px 12px 12px;
     border: 1px solid #cbd5e1;
     border-radius: 10px;
     outline: none;

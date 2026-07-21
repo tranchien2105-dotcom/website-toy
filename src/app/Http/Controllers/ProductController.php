@@ -136,6 +136,81 @@ class ProductController extends Controller
         ], 201);
     }
 
+    public function updateProductApi(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+
+            'brand_id' => 'nullable|exists:brands,id',
+
+            'name' => 'required|string|max:255',
+
+            'price' => 'required|numeric|min:0',
+
+            'stock' => 'required|integer|min:0',
+
+            'description' => 'nullable|string',
+
+            'status' => 'required|boolean',
+
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Upload Image
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('image')) {
+
+            // Delete old image if exists
+            if ($product->image) {
+                $oldImagePath = public_path('layout/images/products/' . $product->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $imageName = time() . '.' .
+                $request->image->extension();
+
+            $request->image->move(
+                public_path('layout/images/products'),
+                $imageName
+            );
+
+            $product->image = $imageName;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Product
+        |--------------------------------------------------------------------------
+        */
+        $slug = Str::slug($request->name, '-');
+        $product->update([
+            'category_id' => $request->category_id,
+            'brand_id' => 1,
+
+            'name' => $request->name,
+            'slug' => $slug,
+            'price' => $request->price,
+            'stock' => $request->stock,
+
+            'description' => $request->description,
+
+            'status' => $request->status,
+        ]);
+
+        return response()->json([
+            'message' => 'Cập nhật sản phẩm thành công',
+            'data' => $product
+        ]);
+    }
+
     public function deleteProductApi($id)
     {
         $product = Product::findOrFail($id);

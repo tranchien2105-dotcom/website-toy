@@ -1,37 +1,35 @@
 @extends('welcome')
 @section('main')
     <!-- Shipping Info -->
-      <section class="slid-sec with-bg-wide">
-            <!-- Main Slider Start -->
-            <div class="tp-banner-container">
-                <div class="tp-banner-full">
-                    <ul>
+    <section class="slid-sec with-bg-wide">
+        <!-- Main Slider Start -->
+        <div class="tp-banner-container">
+            <div class="tp-banner-full">
+                <ul>
 
-                        @foreach($banners as $banner)
-                            <li data-transition="random" data-slotamount="7" data-masterspeed="300"
-                                data-saveperformance="off">
+                    @foreach($banners as $banner)
+                        <li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
 
-                                {{-- MAIN IMAGE --}}
-                                @if($banner->link_url)
-                                    <a href="{{ $banner->link_url }}">
-                                        <img src="{{ asset('layout/images/banners/' . $banner->image_url) }}"
-                                            alt="{{ $banner->title }}" data-bgposition="center center" data-bgfit="cover"
-                                            data-bgrepeat="no-repeat">
-                                    </a>
-                                @else
-                                    <img src="{{ asset('layout/images/banners/' . $banner->image_url) }}"
-                                        alt="{{ $banner->title }}" data-bgposition="center center" data-bgfit="cover"
-                                        data-bgrepeat="no-repeat">
-                                @endif
+                            @if($banner->link_url)
+                                <a href="{{ $banner->link_url }}">
+                                    <img src="{{ asset('layout/images/banners/' . $banner->image_url) }}" alt="{{ $banner->title }}"
+                                        data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
+                                        style="width:100%; height:500px; object-fit:cover;">
+                                </a>
+                            @else
+                                <img src="{{ asset('layout/images/banners/' . $banner->image_url) }}" alt="{{ $banner->title }}"
+                                    data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat"
+                                    style="width:100%; height:500px; object-fit:cover;">
+                            @endif
 
-                            </li>
-                        @endforeach
+                        </li>
+                    @endforeach
 
-                    </ul>
-                </div>
+                </ul>
             </div>
-        </section>
-        
+        </div>
+    </section>
+
     <section class="shipping-info">
         <div class="container">
             <ul>
@@ -78,10 +76,10 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-pills margin-bottom-40" role="tablist">
                 <li role="presentation" class="active"><a href="#featur" aria-controls="featur" role="tab"
-                        data-toggle="tab">Featured</a></li>
-                <li role="presentation"><a href="#special" aria-controls="special" role="tab" data-toggle="tab">Special</a>
+                        data-toggle="tab">Mới nhất</a></li>
+                <li role="presentation"><a href="#special" aria-controls="special" role="tab" data-toggle="tab">Đặc biệt</a>
                 </li>
-                <li role="presentation"><a href="#on-sal" aria-controls="on-sal" role="tab" data-toggle="tab">Onsale</a>
+                <li role="presentation"><a href="#on-sal" aria-controls="on-sal" role="tab" data-toggle="tab">Khuyến mãi</a>
                 </li>
             </ul>
 
@@ -97,7 +95,8 @@
                                 <article> <img class="img-responsive"
                                         src="{{ asset("layout/images/products/" . $product->image) }}" alt="">
                                     <!-- Content -->
-                                    <span class="tag">{{ $product->category->name }}</span> <a href="#."
+                                    <span class="tag">{{ $product->category->name }}</span> <a
+                                        href="{{ route('layout.product.detail', $product->slug) }}"
                                         class="tittle">{{ $product->name }}</a>
                                     <!-- Reviews -->
                                     <p class="rev">
@@ -114,7 +113,8 @@
                                         </span>
                                     </p>
                                     <div class="price">{{ number_format($product->price, 0, ',', '.') }}₫</div>
-                                    <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}"><i class="icon-basket-loaded"></i></a>
+                                    <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}"><i
+                                            class="icon-basket-loaded"></i></a>
                                 </article>
                             </div>
                         @endforeach
@@ -141,7 +141,8 @@
                                         class="margin-left-10">5
                                         Review(s)</span></p>
                                 <div class="price">$350.00 </div>
-                                <a href="{{ route('cart.add', $product->id) }}" class="cart-btn"><i class="icon-basket-loaded"></i></a>
+                                <a href="{{ route('cart.add', $product->id) }}" class="cart-btn"><i
+                                        class="icon-basket-loaded"></i></a>
                             </article>
                         </div>
 
@@ -315,7 +316,7 @@
 
             <!-- heading -->
             <div class="heading">
-                <h2>Top Selling of the Week</h2>
+                <h2>Bán chạy trong tuần</h2>
                 <hr>
             </div>
 
@@ -335,138 +336,36 @@
                 </div>
 
                 <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-6.jpg" alt=""> <span
-                            class="sale-tag">-25%</span>
+                @foreach($topSellingProducts as $product)
+                    <div class="product">
+                        <article> <img class="img-responsive" src="{{ asset("layout/images/products/" . $product->image) }}"
+                                alt=""> <span class="sale-tag">-25%</span>
 
-                        <!-- Content -->
-                        <span class="tag">Tablets</span> <a href="#." class="tittle">Mp3 Sumergible Deportivo
-                            Slim Con 8GB</a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00 <span>$200.00</span></div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
+                            <!-- Content -->
+                            <span class="tag">{{ $product->category->name ?? '' }}</span> <a
+                                href="{{ route('layout.product.detail', $product->slug) }}"
+                                class="tittle">{{ $product->name }}</a>
+                            <!-- Reviews -->
+                            <p class="rev">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= ceil($product->star))
+                                        <i class="fa fa-star"></i>
+                                    @else
+                                        <i class="fa fa-star-o"></i>
+                                    @endif
+                                @endfor
 
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-7.jpg" alt="">
-                        <!-- Content -->
-                        <span class="tag">Appliances</span> <a href="#." class="tittle">Reloj Inteligente Smart
-                            Watch M26 Touch Bluetooh </a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
+                                <span class="margin-left-10">
+                                    ({{ $product->review_count }}) Nhận xét
+                                </span>
+                            </p>
+                            <div class="price">{{ number_format($product->price, 0, ',', '.') }}₫</div>
+                            <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}"><i
+                                    class="icon-basket-loaded"></i></a>
+                        </article>
+                    </div>
+                @endforeach
 
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-8.jpg" alt=""> <span
-                            class="new-tag">New</span>
-
-                        <!-- Content -->
-                        <span class="tag">Accessories</span> <a href="#." class="tittle">Teclado Inalambrico
-                            Bluetooth Con Air Mouse</a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
-
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-9.jpg" alt="">
-                        <!-- Content -->
-                        <span class="tag">Appliances</span> <a href="#." class="tittle">Funda Para Ebook 7"
-                            128GB full HD</a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
-
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-10.jpg" alt="">
-                        <!-- Content -->
-                        <span class="tag">Appliances</span> <a href="#." class="tittle">Reloj Inteligente Smart
-                            Watch M26 Touch Bluetooh </a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
-
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-11.jpg" alt=""> <span
-                            class="new-tag">New</span>
-
-                        <!-- Content -->
-                        <span class="tag">Accessories</span> <a href="#." class="tittle">Teclado Inalambrico
-                            Bluetooth Con Air Mouse</a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="{{ route('cart.add', $product->id) }}" class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
-
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-12.jpg" alt="">
-                        <!-- Content -->
-                        <span class="tag">Appliances</span> <a href="#." class="tittle">Funda Para Ebook 7"
-                            128GB full HD</a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
-
-                <!-- Product -->
-                <div class="product">
-                    <article> <img class="img-responsive" src="images/item-img-1-13.jpg" alt="">
-                        <!-- Content -->
-                        <span class="tag">Appliances</span> <a href="#." class="tittle">Reloj Inteligente Smart
-                            Watch M26 Touch Bluetooh </a>
-                        <!-- Reviews -->
-                        <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            <span class="margin-left-10">5 Review(s)</span>
-                        </p>
-                        <div class="price">$350.00</div>
-                        <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                    </article>
-                </div>
             </div>
         </div>
     </section>
@@ -509,7 +408,8 @@
                                         <article>
 
                                             {{-- Image --}}
-                                            <img class="img-responsive" src="{{ asset('layout/images/products/' . $product->image) }}"
+                                            <img class="img-responsive"
+                                                src="{{ asset('layout/images/products/' . $product->image) }}"
                                                 alt="{{ $product->name }}">
 
                                             {{-- Tag --}}
@@ -518,7 +418,7 @@
                                             </span>
 
                                             {{-- Name --}}
-                                            <a href="" class="tittle">
+                                            <a href="{{ route('layout.product.detail', $product->slug) }}" class="tittle">
                                                 {{ $product->name }}
                                             </a>
 
@@ -545,9 +445,8 @@
                                             </div>
 
                                             {{-- Cart --}}
-                                            <a href="{{ route('cart.add', $product->id) }}" class="cart-btn">
-                                                <i class="icon-basket-loaded"></i>
-                                            </a>
+                                            <a href="javascript:void(0)" class="cart-btn add-cart-btn"
+                                                data-id="{{ $product->id }}"><i class="icon-basket-loaded"></i></a>
 
                                         </article>
                                     </div>
@@ -651,5 +550,5 @@
             </div>
         </div>
     </section>
-    
+
 @endsection
