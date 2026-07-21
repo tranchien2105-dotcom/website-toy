@@ -1,123 +1,283 @@
 <template>
     <div class="layout">
 
-        <aside class="sidebar">
+        <!-- Sidebar -->
+        <aside class="sidebar" :class="{ collapsed: isCollapsed }">
 
-            <h2>Dashboard</h2>
+            <div class="sidebar-header">
+                <h2 v-if="!isCollapsed">Dashboard</h2>
+
+                <button class="toggle-btn" @click="isCollapsed = !isCollapsed">
+                    ☰
+                </button>
+            </div>
 
             <nav>
-                <router-link to="/home">Home</router-link>
-                <router-link to="/products">Products</router-link>
-                <router-link to="/banners">Banners</router-link>
-                <router-link to="/products/create">Create</router-link>
+                <router-link to="/home">
+                    🏠 <span v-if="!isCollapsed">Home</span>
+                </router-link>
+
+                <!-- Products -->
+                <div class="menu-group">
+
+                    <div class="menu-title" @click="showProductMenu = !showProductMenu">
+                        <span>📦</span>
+
+                        <span v-if="!isCollapsed" class="title">
+                            Products
+                        </span>
+
+                        <span v-if="!isCollapsed" class="arrow" :class="{ rotate: showProductMenu }">
+                            ▼
+                        </span>
+                    </div>
+
+                    <div v-if="showProductMenu && !isCollapsed" class="submenu">
+                        <router-link to="/products">
+                            📋 All Products
+                        </router-link>
+
+                        <router-link to="/products/create">
+                            ➕ Create Product
+                        </router-link>
+
+
+                    </div>
+
+                </div>
+
+                <router-link to="/banners">
+                    🖼️ <span v-if="!isCollapsed">Banners</span>
+                </router-link>
+
+                <router-link to="/orders">
+                    📄 <span v-if="!isCollapsed">Orders</span>
+                </router-link>
+
+                <router-link to="/categories">
+                    🗂️ <span v-if="!isCollapsed">Categories</span>
+                </router-link>
+
             </nav>
 
         </aside>
 
+        <!-- Content -->
         <main class="content">
             <router-view />
         </main>
 
     </div>
 </template>
-<style scoped>
+
+<script setup>
+import { ref } from 'vue'
+
+const isCollapsed = ref(false)
+const showProductMenu = ref(true)
+</script>
+
+<style lang="css" scoped>
 .layout {
     display: flex;
     min-height: 100vh;
-    background: #f1f5f9;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: #f3f4f6;
+    font-family: Inter, sans-serif;
 }
 
-/* =======================
-   SIDEBAR
-======================= */
+/* ==========================
+        SIDEBAR
+========================== */
+
 .sidebar {
     width: 260px;
-    background: #0f172a;
+    background: linear-gradient(180deg, #111827, #1f2937);
     color: white;
-    padding: 24px;
+    transition: all .3s ease;
+    overflow: hidden;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, .15);
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar-header {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
 
-.sidebar h2 {
+.sidebar-header h2 {
+    color: #60a5fa;
     font-size: 22px;
-    font-weight: 700;
-    color: #38bdf8;
-    margin-bottom: 10px;
+    font-weight: bold;
 }
 
-/* NAV LINKS */
+.toggle-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .08);
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    transition: .25s;
+}
+
+.toggle-btn:hover {
+    background: #3b82f6;
+    transform: rotate(90deg);
+}
+
 .sidebar nav {
+    padding: 20px 12px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 14px 16px;
+    border-radius: 12px;
+
     text-decoration: none;
-    color: #cbd5e1;
-    padding: 12px 14px;
-    border-radius: 10px;
-    transition: all 0.2s ease;
+    color: #d1d5db;
+
+    transition: .25s;
+    white-space: nowrap;
     font-weight: 500;
 }
 
 .sidebar a:hover {
-    background: #1e293b;
-    color: #fff;
-    transform: translateX(4px);
+    background: rgba(59, 130, 246, .15);
+    color: white;
+    transform: translateX(5px);
 }
 
-/* ACTIVE LINK */
 .router-link-active {
-    background: #3b82f6;
+    background: #2563eb;
     color: white !important;
-    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, .35);
 }
 
-/* =======================
-   MAIN CONTENT
-======================= */
+/* Thu gọn */
+
+.sidebar.collapsed a {
+    justify-content: center;
+    padding: 15px;
+}
+
+.sidebar.collapsed a span {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-header {
+    justify-content: center;
+}
+
+.sidebar.collapsed h2 {
+    display: none;
+}
+
+/* ==========================
+        CONTENT
+========================== */
+
 .content {
     flex: 1;
     padding: 30px;
 }
 
-/* CARD STYLE (optional wrapper cho page) */
 .content>* {
     background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    padding: 24px;
+    min-height: calc(100vh - 60px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
 }
 
-/* =======================
-   RESPONSIVE
-======================= */
-@media (max-width: 768px) {
-    .layout {
-        flex-direction: column;
-    }
+/* ==========================
+        MOBILE
+========================== */
+
+@media(max-width:768px) {
 
     .sidebar {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+        position: fixed;
+        z-index: 999;
+        height: 100vh;
     }
 
-    .sidebar nav {
-        flex-direction: row;
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+        width: 260px;
     }
 
     .content {
-        padding: 15px;
+        padding: 20px;
+        margin-left: 0;
     }
+}
+
+.menu-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: #d1d5db;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.menu-title:hover {
+    background: rgba(59, 130, 246, .15);
+    color: white;
+}
+
+.title {
+    flex: 1;
+}
+
+.arrow {
+    font-size: 12px;
+    transition: .25s;
+}
+
+.arrow.rotate {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    margin-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 6px;
+}
+
+.submenu a {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    color: #9ca3af;
+}
+
+.submenu a:hover {
+    background: rgba(255, 255, 255, .06);
+    color: white;
 }
 </style>

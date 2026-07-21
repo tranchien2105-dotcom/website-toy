@@ -63,6 +63,13 @@ class CategoryAdminController extends Controller
             ->with('success', 'Category created successfully.');
     }
 
+    public function getCategoryApi($id)
+    {
+        $category = Category::with('children')->findOrFail($id);
+
+        return response()->json($category);
+    }
+
     public function editCategory($id)
     {
         $category = Category::findOrFail($id);
@@ -97,6 +104,33 @@ class CategoryAdminController extends Controller
         return redirect()
             ->route('admin.categories')
             ->with('success', 'Category updated successfully.');
+    }
+
+    public function updateCategoryApi(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:categories,id',
+            'status' => 'required|in:1,0',
+            'description' => 'nullable|string',
+        ]);
+
+        $slug = Str::slug($request->name);
+
+        $category->update([
+            'name' => $request->name,
+            'slug' => $slug,
+            'parent_id' => $request->parent_id,
+            'status' => $request->status,
+            'description' => $request->description,
+        ]);
+
+        return response()->json([
+            'message' => 'Câp nhật thể loại thành công.',
+            'category' => $category
+        ]);
     }
 
     public function deleteCategory($id)

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BannerAdminController;
 use App\Http\Controllers\CategoryAdminController;
+use App\Http\Controllers\OrderAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Jobs\TestJob;
@@ -109,6 +110,18 @@ Route::prefix('categories')
             '/',
             [CategoryAdminController::class, 'listCategoriesApi']
         )->name('list');
+
+        Route::get(
+            '/{id}',
+            [CategoryAdminController::class, 'getCategoryApi']
+        )->name('show');
+
+         Route::put(
+            '/{id}',
+            [CategoryAdminController::class, 'updateCategoryApi']
+        )->name('update');
+
+
     });
 
 
@@ -134,4 +147,18 @@ Route::prefix('banners')
         Route::post('/create', [BannerAdminController::class, 'storeBannerApi']);
 
 
+    });
+
+Route::prefix('orders')
+    ->name('api.orders.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [OrderAdminController::class, 'listOrdersApi']
+        )->name('order.list');
+
+        Route::get('/{id}', [OrderAdminController::class, 'detailOrder']);
+
+        Route::put('/status/{id}', [OrderAdminController::class, 'updateOrderStatus']);
     });

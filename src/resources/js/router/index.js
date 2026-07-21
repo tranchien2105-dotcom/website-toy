@@ -11,6 +11,10 @@ import ProductDetail from '../pages/ProductDetail.vue'
 import LoginView from '../pages/LoginView.vue'
 import BannerDetail from '../pages/BannerDetail.vue'
 import AddBanner from '../pages/AddBanner.vue'
+import OrdersList from '../pages/OrdersList.vue'
+import OrderDetail from '../pages/OrderDetail.vue'
+import Categories from '../pages/Categories.vue'
+import CategoryDetail from '../pages/CategoryDetail.vue'
 
 const routes = [
 
@@ -52,6 +56,26 @@ const routes = [
             }, {
                 path: 'banners/:id',
                 component: BannerDetail,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'orders',
+                component: OrdersList,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'orders/:id',
+                component: OrderDetail,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'categories',
+                component: Categories,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'categories/:id',
+                component: CategoryDetail,
                 meta: { requiresAuth: true }
             }
         ]
