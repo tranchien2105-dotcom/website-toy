@@ -169,7 +169,7 @@
 
                     <div class="cate-lst">
                         <a data-toggle="collapse" class="cate-style" href="#cater">
-                            <i class="fa fa-list-ul"></i> Our Categories
+                            <i class="fa fa-list-ul"></i> Thể loại sản phẩm
                         </a>
 
                         <div class="cate-bar-in">
@@ -228,68 +228,9 @@
                     <!-- NAV -->
                     <div class="collapse navbar-collapse" id="nav-open-btn">
                         <ul class="nav">
-                            <li class="dropdown megamenu active"> <a href="index.html" class="dropdown-toggle"
-                                    data-toggle="dropdown">Home </a>
-                                <div class="dropdown-menu animated-2s fadeInUpHalf">
-                                    <div class="mega-inside scrn">
-                                        <ul class="home-links">
-                                            <li><a href="index.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-1.jpg') }}" alt=""> <span>Home
-                                                        Version 1</span></a></li>
-                                            <li><a href="index-2.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-2.jpg') }}" alt=""> <span>Home
-                                                        Version 2</span></a> </li>
-                                            <li><a href="index-3.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-3.jpg') }}" alt=""> <span>Home
-                                                        Version 3</span></a></li>
-                                            <li><a href="index-4.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-4.jpg') }}" alt=""> <span>Home
-                                                        Version 4</span></a></li>
-                                            <li><a href="index-5.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-5.jpg') }}" alt=""> <span>Home
-                                                        Version 5</span></a></li>
-                                            <li><a href="index-6.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-6.jpg') }}" alt=""> <span>Home
-                                                        Version 6</span></a></li>
-                                            <li><a href="index-7.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-7.jpg') }}" alt=""> <span>Home
-                                                        Version 7</span></a></li>
-                                            <li><a href="index-8.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-8.jpg') }}" alt=""> <span>Home
-                                                        Version 8</span></a></li>
-                                            <li><a href="index-9.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-9.jpg') }}" alt=""> <span>Home
-                                                        Version 9</span></a></li>
-                                            <li><a href="index-10.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-10.jpg') }}" alt="">
-                                                    <span>Home Version 10</span></a></li>
-                                            <li><a href="index-11.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-11.jpg') }}" alt="">
-                                                    <span>Home Version 11</span></a></li>
-                                            <li><a href="index-12.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-12.jpg') }}" alt="">
-                                                    <span>Home Version 12</span></a></li>
-                                            <li><a href="index-13.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-13.jpg') }}" alt="">
-                                                    <span>Home Version 13</span></a></li>
-                                            <li><a href="index-14.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-14.jpg') }}" alt="">
-                                                    <span>Home Version 14</span></a></li>
-                                            <li><a href="index-15.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-15.jpg') }}" alt="">
-                                                    <span>Home Version 15</span></a></li>
-                                            <li><a href="index-16.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-16.jpg') }}" alt="">
-                                                    <span>Home Version 16</span></a></li>
-                                            <li><a href="index-17.html"><img class="img-responsive"
-                                                        src="{{ asset('layout/images/home-17.jpg') }}" alt="">
-                                                    <span>Home Version 17</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
+                          
                             <li class="dropdown"> <a href="index.html" class="dropdown-toggle"
-                                    data-toggle="dropdown">Pages </a>
+                                    data-toggle="dropdown">Trang web </a>
                                 <ul class="dropdown-menu multi-level animated-2s fadeInUpHalf">
                                     <li><a href="About.html"> About </a></li>
                                     <li><a href="LoginForm.html"> Login Form </a></li>
@@ -311,82 +252,13 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!-- Mega Menu Nav -->
-                            <li class="dropdown megamenu"> <a href="index.html" class="dropdown-toggle"
-                                    data-toggle="dropdown">Mega menu </a>
-                                <div class="dropdown-menu animated-2s fadeInUpHalf">
-                                    <div class="mega-inside">
-                                        <div class="top-lins">
-                                            <ul>
-                                                <li><a href="#."> Cell Phones & Accessories </a></li>
-                                                <li><a href="#."> Carrier Phones </a></li>
-                                                <li><a href="#."> Unlocked Phones </a></li>
-                                                <li><a href="#."> Prime Exclusive Phones </a></li>
-                                                <li><a href="#."> Accessories </a></li>
-                                                <li><a href="#."> Cases </a></li>
-                                                <li><a href="#."> Best Sellers </a></li>
-                                                <li><a href="#."> Deals </a></li>
-                                                <li><a href="#."> All Electronics </a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <h6>Electronics</h6>
-                                                <ul>
-                                                    <li><a href="#."> Cell Phones & Accessories </a></li>
-                                                    <li><a href="#."> Carrier Phones </a></li>
-                                                    <li><a href="#."> Unlocked Phones </a></li>
-                                                    <li><a href="#."> Prime Exclusive Phones </a></li>
-                                                    <li><a href="#."> Accessories </a></li>
-                                                    <li><a href="#."> Cases </a></li>
-                                                    <li><a href="#."> Best Sellers </a></li>
-                                                    <li><a href="#."> Deals </a></li>
-                                                    <li><a href="#."> All Electronics </a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <h6>Computers</h6>
-                                                <ul>
-                                                    <li><a href="#."> Computers & Tablets</a></li>
-                                                    <li><a href="#."> Monitors</a></li>
-                                                    <li><a href="#."> Laptops & tablets</a></li>
-                                                    <li><a href="#."> Networking</a></li>
-                                                    <li><a href="#."> Drives & Storage</a></li>
-                                                    <li><a href="#."> Computer Parts & Components</a></li>
-                                                    <li><a href="#."> Printers & Ink</a></li>
-                                                    <li><a href="#."> Office & School Supplies </a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <h6>Home Appliances</h6>
-                                                <ul>
-                                                    <li><a href="#."> Refrigerators</a></li>
-                                                    <li><a href="#."> Wall Ovens</a></li>
-                                                    <li><a href="#."> Cooktops & Hoods</a></li>
-                                                    <li><a href="#."> Microwaves</a></li>
-                                                    <li><a href="#."> Dishwashers</a></li>
-                                                    <li><a href="#."> Washers</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4"> <img class=" nav-img" src="images/navi-img.png"
-                                                    alt=""> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="dropdown"> <a href="blog.html" class="dropdown-toggle"
-                                    data-toggle="dropdown">Blog</a>
-                                <ul class="dropdown-menu multi-level animated-2s fadeInUpHalf">
-                                    <li><a href="Blog.html">Blog </a></li>
-                                    <li><a href="Blog_details.html">Blog Single </a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="shop.html">Buy theme! </a></li>
+                        
+                          
                         </ul>
                     </div>
 
                     <!-- NAV RIGHT -->
-                    <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Hotline:</strong>
+                    <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Điện thoại:</strong>
                             (+84) 123 456 7890</span> </div>
                 </div>
             </nav>
@@ -409,14 +281,14 @@
                 <!-- Footer Upside Links -->
                 <div class="foot-link">
                     <ul>
-                        <li><a href="#."> About us </a></li>
-                        <li><a href="#."> Customer Service </a></li>
-                        <li><a href="#."> Privacy Policy </a></li>
-                        <li><a href="#."> Site Map </a></li>
-                        <li><a href="#."> Search Terms </a></li>
-                        <li><a href="#."> Advanced Search </a></li>
-                        <li><a href="#."> Orders and Returns </a></li>
-                        <li><a href="#."> Contact Us</a></li>
+                        <li><a href="#.">Giới thiệu</a></li>
+                        <li><a href="#.">Hỗ trợ khách hàng</a></li>
+                        <li><a href="#.">Chính sách bảo mật</a></li>
+                        <li><a href="#.">Sơ đồ website</a></li>
+                        <li><a href="#.">Tìm kiếm sản phẩm</a></li>
+                        <li><a href="#.">Tìm kiếm nâng cao</a></li>
+                        <li><a href="#.">Đơn hàng & Đổi trả</a></li>
+                        <li><a href="#.">Liên hệ</a></li>
                     </ul>
                 </div>
                 <div class="row">
@@ -436,40 +308,41 @@
 
                     <!-- Categories -->
                     <div class="col-md-3">
-                        <h4>Categories</h4>
+                        <h4>Thể loại</h4>
+                        <!-- #region -->
+                        @php
+                            $categorieParent = getCategories(true);
+                        @endphp
+
                         <ul class="links-footer">
-                            <li><a href="#.">Home Audio & Theater</a></li>
-                            <li><a href="#."> TV & Video</a></li>
-                            <li><a href="#."> Camera, Photo & Video</a></li>
-                            <li><a href="#."> Cell Phones & Accessories</a></li>
-                            <li><a href="#."> Headphones</a></li>
-                            <li><a href="#."> Video Games</a></li>
-                            <li><a href="#."> Bluetooth & Wireless</a></li>
+                            @foreach ($categorieParent as $category)
+                                <li><a href="#.">{{ $category->name }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
 
                     <!-- Categories -->
                     <div class="col-md-3">
-                        <h4>Customer Services</h4>
+                        <h4>Hỗ trợ khách hàng</h4>
                         <ul class="links-footer">
-                            <li><a href="#.">Shipping & Returns</a></li>
-                            <li><a href="#."> Secure Shopping</a></li>
-                            <li><a href="#."> International Shipping</a></li>
-                            <li><a href="#."> Affiliates</a></li>
-                            <li><a href="#."> Contact </a></li>
+                            <li><a href="#.">Chính sách giao hàng</a></li>
+                            <li><a href="#.">Đổi trả & hoàn tiền</a></li>
+                            <li><a href="#.">Hướng dẫn mua hàng</a></li>
+                            <li><a href="#.">Phương thức thanh toán</a></li>
+                            <li><a href="#.">Liên hệ hỗ trợ</a></li>
                         </ul>
                     </div>
 
-                    <!-- Categories -->
+                    <!-- Information -->
                     <div class="col-md-2">
-                        <h4>Information</h4>
+                        <h4>Thông tin</h4>
                         <ul class="links-footer">
-                            <li><a href="#.">Our Blog</a></li>
-                            <li><a href="#."> About Our Shop</a></li>
-                            <li><a href="#."> Secure Shopping</a></li>
-                            <li><a href="#."> Delivery infomation</a></li>
-                            <li><a href="#."> Store Locations</a></li>
-                            <li><a href="#."> FAQs</a></li>
+                            <li><a href="#.">Giới thiệu</a></li>
+                            <li><a href="#.">Tin tức</a></li>
+                            <li><a href="#.">Chính sách bảo mật</a></li>
+                            <li><a href="#.">Điều khoản sử dụng</a></li>
+                            <li><a href="#.">Hệ thống cửa hàng</a></li>
+                            <li><a href="#.">Câu hỏi thường gặp</a></li>
                         </ul>
                     </div>
                 </div>

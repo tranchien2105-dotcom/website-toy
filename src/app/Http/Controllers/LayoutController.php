@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class LayoutController extends Controller
@@ -40,7 +42,14 @@ class LayoutController extends Controller
             ->take(8)
             ->get();
 
-        return view('layouts.home', compact('products', 'categories', 'tagsCategory', 'banners', 'topSellingProducts'));
+
+        $blogs = Blog::where('status', 'Published')
+            ->whereDate('date_from', '<=', Carbon::today())
+            ->whereDate('date_to', '>=', Carbon::today())
+            ->take(6)
+            ->get();
+
+        return view('layouts.home', compact('products', 'categories', 'tagsCategory', 'banners', 'topSellingProducts', 'blogs'));
     }
 
     public function detailProduct($slug)

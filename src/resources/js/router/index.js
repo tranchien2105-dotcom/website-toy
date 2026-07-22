@@ -14,6 +14,9 @@ import OrdersList from '../pages/OrdersList.vue'
 import OrderDetail from '../pages/OrderDetail.vue'
 import Categories from '../pages/Categories.vue'
 import CategoryDetail from '../pages/CategoryDetail.vue'
+import Blogs from '../pages/Blogs.vue'
+import AddBlog from '../pages/AddBlog.vue'
+import BlogDetail from '../pages/BlogDetail.vue'
 
 const routes = [
 
@@ -80,7 +83,21 @@ const routes = [
                 component: CategoryDetail,
                 meta: { requiresAuth: true }
             },
-
+            {
+                path: 'blogs',
+                component: Blogs,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'blogs/create',
+                component: AddBlog,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'blogs/:id',
+                component: BlogDetail,
+                meta: { requiresAuth: true }
+            }
         ]
     },
 
