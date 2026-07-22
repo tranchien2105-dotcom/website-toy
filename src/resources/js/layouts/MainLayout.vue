@@ -58,19 +58,40 @@
                     🗂️ <span v-if="!isCollapsed">Categories</span>
                 </router-link>
 
+                <router-link to="/blogs">
+                    📝 <span v-if="!isCollapsed">Blogs</span>
+                </router-link>
+
+
             </nav>
 
-            <!-- User Info -->
-            <div v-if="user" class="user-info">
+            <div v-if="user" class="user-info" @click="showUserMenu = !showUserMenu">
                 <div class="avatar">
                     {{ user?.name?.charAt(0).toUpperCase() }}
                 </div>
 
                 <div v-if="!isCollapsed" class="user-detail">
-                    <div class="name">{{ user.name }}</div>
-                    <div class="email">{{ user.email }}</div>
+                    <div class="name">
+                        {{ user.name }}
+                    </div>
+
+                    <div class="email">
+                        {{ user.email }}
+                    </div>
+                </div>
+
+                <span v-if="!isCollapsed" class="user-arrow">
+                    ▼
+                </span>
+
+                <div v-if="showUserMenu && !isCollapsed" class="user-dropdown">
+                    <button @click.stop="logout">
+                        🚪 Đăng xuất
+                    </button>
                 </div>
             </div>
+
+
 
         </aside>
 
@@ -85,10 +106,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from '../axios'
+import { useRouter } from 'vue-router'
 
+const showUserMenu = ref(false)
 const isCollapsed = ref(false)
 const showProductMenu = ref(true)
-
+const router = useRouter()
 const user = ref(null)
 const getProfile = async () => {
     try {
@@ -97,6 +120,17 @@ const getProfile = async () => {
         user.value = data.user
     } catch (error) {
         console.error(error)
+    }
+}
+
+const logout = async () => {
+    try {
+        await axios.post('/api/logout')
+    } catch (error) {
+        console.log(error)
+    } finally {
+        localStorage.removeItem('token')
+        router.push('/admin/login')
     }
 }
 
@@ -116,6 +150,40 @@ onMounted(() => {
 /* ==========================
         SIDEBAR
 ========================== */
+.logout-box {
+    padding: 16px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    color: #f87171;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: .25s;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, .15);
+    color: white;
+}
+
+.sidebar.collapsed .logout-btn {
+    justify-content: center;
+    padding: 15px;
+}
+
+.sidebar.collapsed .logout-btn span {
+    display: none;
+}
 
 .sidebar {
     width: 260px;
@@ -313,12 +381,55 @@ onMounted(() => {
 }
 
 .user-info {
+    position: relative;
     margin-top: auto;
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 18px;
     border-top: 1px solid rgba(255, 255, 255, .08);
+    cursor: pointer;
+}
+
+.user-info:hover {
+    background: rgba(255, 255, 255, .04);
+}
+
+.user-arrow {
+    margin-left: auto;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.user-dropdown {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 78px;
+
+    background: #1f2937;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
+    z-index: 999;
+}
+
+.user-dropdown button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.user-dropdown button:hover {
+    background: rgba(239, 68, 68, .15);
+    color: #f87171;
 }
 
 .avatar {

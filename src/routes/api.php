@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BannerAdminController;
+use App\Http\Controllers\BlogAdminController;
 use App\Http\Controllers\CategoryAdminController;
 use App\Http\Controllers\OrderAdminController;
 use App\Http\Controllers\ProductController;
@@ -116,7 +117,7 @@ Route::prefix('categories')
             [CategoryAdminController::class, 'getCategoryApi']
         )->name('show');
 
-         Route::put(
+        Route::put(
             '/{id}',
             [CategoryAdminController::class, 'updateCategoryApi']
         )->name('update');
@@ -161,4 +162,21 @@ Route::prefix('orders')
         Route::get('/{id}', [OrderAdminController::class, 'detailOrder']);
 
         Route::put('/status/{id}', [OrderAdminController::class, 'updateOrderStatus']);
+    });
+
+Route::prefix('blogs')
+    ->middleware('auth:sanctum')
+    ->name('api.blogs.')
+    ->group(function () {
+
+        Route::get(
+            '/',
+            [BlogAdminController::class, 'listBlogsApi']
+        )->name('blog.list');
+
+        Route::post('/create', [BlogAdminController::class, 'storeBlogApi']);
+
+        Route::get('/{id}', [BlogAdminController::class, 'detailBlog']);
+
+        Route::put('/{id}', [BlogAdminController::class, 'updateBlog']);
     });
