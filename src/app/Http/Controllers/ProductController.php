@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -64,8 +65,8 @@ class ProductController extends Controller
 
     public function getProductApi($id)
     {
-        $product = Product::with('category')->findOrFail($id);
- 
+        $product = Product::with('category', 'images')->findOrFail($id);
+
         return response()->json($product);
     }
 
@@ -156,6 +157,10 @@ class ProductController extends Controller
             'status' => 'required|boolean',
 
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'gallery' => 'nullable|array',
+
+            'gallery.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         /*
@@ -194,17 +199,68 @@ class ProductController extends Controller
         $product->update([
             'category_id' => $request->category_id,
             'brand_id' => 1,
-
             'name' => $request->name,
             'slug' => $slug,
             'price' => $request->price,
             'stock' => $request->stock,
-
             'description' => $request->description,
-
             'status' => $request->status,
         ]);
 
+        /*
+  |--------------------------------------------------------------------------
+  | Update Product Gallery
+  |--------------------------------------------------------------------------
+  */
+
+        if ($request->hasFile('gallery')) {
+
+            $folder = public_path('layout/images/products/' . $product->slug);
+
+            // Tạo thư mục nếu chưa có
+            if (!file_exists($folder)) {
+                mkdir($folder, 0755, true);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Delete Old Gallery
+            |--------------------------------------------------------------------------
+            */
+
+            foreach ($product->images as $oldImage) {
+
+                $oldImagePath = $folder . '/' . $oldImage->image;
+
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+
+                $oldImage->delete();
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | Upload New Gallery
+            |--------------------------------------------------------------------------
+            */
+
+            foreach ($request->file('gallery') as $image) {
+
+                $imageName = time() . '_' . uniqid() . '.' . $image->extension();
+
+                $image->move(
+                    $folder,
+                    $imageName
+                );
+
+                ProductImage::create([
+                    'product_id' => $id,
+                    'image' => $imageName,
+                    'is_main' => false,
+                ]);
+            }
+        }
         return response()->json([
             'message' => 'Cập nhật sản phẩm thành công',
             'data' => $product
@@ -215,7 +271,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $product->delete(); 
+        $product->delete();
 
         return response()->json([
             'message' => 'Xóa sản phẩm thành công'

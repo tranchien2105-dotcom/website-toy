@@ -3,7 +3,12 @@ import { ref, onMounted } from 'vue'
 import axios from '../axios'
 import { useRoute, useRouter } from 'vue-router'
 
+const oldGallery = ref([])
+
+const galleryImages = ref([])
+
 const route = useRoute()
+
 const router = useRouter()
 
 const loading = ref(false)
@@ -15,6 +20,8 @@ const errors = ref([])
 const oldImage = ref('')
 
 const productId = route.params.id
+
+const productSlug = ref('')
 
 const form = ref({
     category_id: '',
@@ -46,6 +53,11 @@ const getCategories = async () => {
     }
 }
 
+const handleGallery = (event) => {
+
+    galleryImages.value = [...event.target.files]
+
+}
 /*
 |--------------------------------------------------------------------------
 | Get Product Detail
@@ -69,12 +81,14 @@ const getProductDetail = async () => {
         form.value.price = product.price
         form.value.stock = product.stock
         form.value.description = product.description
+        productSlug.value = product.slug
 
         // FIX STATUS
         form.value.status = Number(product.status)
 
         // IMAGE CŨ
         oldImage.value = product.image
+        oldGallery.value = product.images || []
 
     } catch (error) {
 
@@ -150,6 +164,15 @@ const updateProduct = async () => {
                 form.value.image
             )
         }
+
+        galleryImages.value.forEach(image => {
+
+            formData.append(
+                'gallery[]',
+                image
+            )
+
+        })
 
         formData.append('_method', 'PUT')
 
@@ -320,6 +343,36 @@ onMounted(async () => {
 
                 </div>
 
+                <!-- Product Gallery -->
+                <div class="form-group">
+
+                    <label>
+                        Thư viện ảnh
+                    </label>
+
+                    <!-- Gallery hiện tại -->
+                    <div v-if="oldGallery.length" class="gallery-grid">
+                        <div v-for="image in oldGallery" :key="image.id" class="gallery-item">
+                            <img :src="'/layout/images/products/' + productSlug + '/' + image.image" alt="">
+                        </div>
+                    </div>
+                    
+                    <!-- Upload nhiều ảnh -->
+                    <input type="file" multiple accept="image/*" @change="handleGallery">
+
+                    <p v-if="galleryImages.length" class="selected-count">
+                        Đã chọn {{ galleryImages.length }} ảnh mới
+                    </p>
+
+                    <!-- Preview ảnh vừa chọn -->
+                    <div v-if="galleryImages.length" class="gallery-grid">
+                        <div v-for="(image, index) in galleryImages" :key="index" class="gallery-item">
+                            <img :src="URL.createObjectURL(image)" alt="">
+                        </div>
+                    </div>
+
+                </div>
+
                 <!-- Status -->
                 <div class="form-group">
 
@@ -362,6 +415,12 @@ onMounted(async () => {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.selected-count {
+    margin: 12px 0;
+    color: #2563eb;
+    font-weight: 600;
 }
 
 .product-detail {
@@ -455,5 +514,36 @@ onMounted(async () => {
     object-fit: cover;
     border-radius: 14px;
     border: 1px solid #e2e8f0;
+}
+
+/* ==========================
+   Product Gallery
+========================== */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 16px;
+    margin-bottom: 15px;
+}
+
+.gallery-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: .25s;
+    background: white;
+}
+
+.gallery-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
 }
 </style>

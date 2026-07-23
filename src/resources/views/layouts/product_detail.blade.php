@@ -160,8 +160,8 @@
                                                 <ul class="slides">
                                                     @foreach ($product->images as $image_data)
                                                         <li
-                                                            data-thumb="{{ asset('layout/images/products/' . $image_data->image) }}">
-                                                            <img src="{{ asset('layout/images/products/' . $image_data->image) }}"
+                                                            data-thumb="{{ asset('layout/images/products/'. $product->slug . '/' . $image_data->image) }}">
+                                                            <img src="{{ asset('layout/images/products/' . $product->slug . '/' . $image_data->image) }}"
                                                                 alt="">
                                                         </li>
 
@@ -183,7 +183,7 @@
                                                     class="price">{{ number_format($product->price, 0, ',', '.') }}₫</span>
                                             </div>
                                             <div class="col-sm-6">
-                                                <p>Availability: <span class="in-stock">In stock</span></p>
+                                                <p>Trạng thái: <span class="in-stock">Còn hàng</span></p>
                                             </div>
                                         </div>
                                         <!-- List Details -->
