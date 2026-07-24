@@ -261,4 +261,9 @@ class LayoutController extends Controller
         return redirect()->route('layout.cart')->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng.');
     }
 
+    public function loginLayout()
+    {
+        return view('layouts.login');
+    }
+
 }

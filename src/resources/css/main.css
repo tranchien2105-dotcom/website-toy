@@ -3244,11 +3244,9 @@ a.dropdown-toggle:after {
 	content: "\f0dd";
 	float: right;
 	font-family: 'FontAwesome';
-	color: #fff;
 	margin: 0px;
 	margin-left: 8px;
-	margin-top: 3px;
-	font-size: 10px;
+	margin-top: -1px;
 	position: relative;
 }
 .multi-level .dropdown-submenu .dropdown-menu {

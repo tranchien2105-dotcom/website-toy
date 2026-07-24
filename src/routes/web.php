@@ -3,6 +3,7 @@
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,9 @@ Route::get('/cart/remove/{id}', [LayoutController::class, 'removeCart'])
 
 Route::get('/order/success/{id}', [LayoutController::class, 'orderSuccess'])
     ->name('order.success');
+
+Route::get('/layout-login', [LayoutController::class, 'loginLayout'])
+    ->name('layout.login');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -130,6 +134,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 });
+
+Route::get('/auth/google', [GoogleController::class, 'redirect'])
+    ->name('google.login');
+
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])
+    ->name('google.callback');
 
 /*
 |--------------------------------------------------------------------------

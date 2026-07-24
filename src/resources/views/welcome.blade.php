@@ -48,7 +48,37 @@
                 <p>Tạp hoá MinhChien</p>
                 <div class="right-sec">
                     <ul>
-                        <li><a href="#.">Đăng nhập/ Đăng ký </a></li>
+                        @guest
+                            <li>
+                                <a href="{{ route('layout.login') }}">Đăng nhập / Đăng ký</a>
+                            </li>
+                        @else
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="">Thông tin cá nhân</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="">Đơn hàng</a>
+                                    </li>
+
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                style="background:none;border:none;padding:8px 20px;width:100%;text-align:left;">
+                                                Đăng xuất
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
 
                         <li>
                             <select class="selectpicker">
@@ -228,7 +258,7 @@
                     <!-- NAV -->
                     <div class="collapse navbar-collapse" id="nav-open-btn">
                         <ul class="nav">
-                          
+
                             <li class="dropdown"> <a href="index.html" class="dropdown-toggle"
                                     data-toggle="dropdown">Trang web </a>
                                 <ul class="dropdown-menu multi-level animated-2s fadeInUpHalf">
@@ -252,13 +282,14 @@
                                     </li>
                                 </ul>
                             </li>
-                        
-                          
+
+
                         </ul>
                     </div>
 
                     <!-- NAV RIGHT -->
-                    <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Điện thoại:</strong>
+                    <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Điện
+                                thoại:</strong>
                             (+84) 123 456 7890</span> </div>
                 </div>
             </nav>
