@@ -23,9 +23,11 @@
                         <div class="row">
 
                             <div class="col-md-6">
-                                <label>Họ và tên <span class="text-danger">*</span></label>
-                                <input type="text" name="fullname" class="form-control" placeholder="Trần Minh Chiến"
-                                    required>
+                                <label>{{ __('messages.full_name') }} <span class="text-danger">*</span></label>
+
+                                <input type="text" name="fullname" class="form-control"
+                                    value="{{ old('fullname', Auth::user()->name ?? '') }}"
+                                    placeholder="{{ __('messages.full_name_placeholder') }}" required>
                             </div>
 
                             <div class="col-md-6">
@@ -34,8 +36,10 @@
                             </div>
 
                             <div class="col-md-12">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="example@gmail.com">
+                                <label>{{ __('messages.email') }}</label>
+
+                                <input type="email" name="email" class="form-control"
+                                    value="{{ old('email', Auth::user()->email ?? '') }}" placeholder="example@gmail.com">
                             </div>
 
                             <div class="col-md-12">
@@ -213,7 +217,7 @@
 
                         </table>
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
+                        <button type="button" class="btn btn-theme btn-lg btn-block" data-toggle="modal"
                             data-target="#confirmOrderModal">
 
                             <i class="fa fa-shopping-cart"></i>
@@ -229,7 +233,7 @@
                     <div class="modal-dialog modal-md">
                         <div class="modal-content">
 
-                            <div class="modal-header" style="background:#337ab7;color:#fff;">
+                            <div class="modal-header" style="background:var(--primary);color:#fff;">
 
                                 <button type="button" class="close" data-dismiss="modal" style="color:#fff;opacity:1">
                                     &times;
@@ -350,6 +354,28 @@
 
         </div>
     </section>
+
+    <style>
+        .btn-theme {
+
+            background: var(--primary);
+
+            border-color: var(--primary);
+
+            color: #fff;
+
+        }
+
+        .btn-theme:hover {
+
+            background: var(--primary-dark);
+
+            border-color: var(--primary-dark);
+
+            color: #fff;
+
+        }
+    </style>
 
 
 

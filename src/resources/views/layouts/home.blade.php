@@ -33,38 +33,55 @@
     <section class="shipping-info">
         <div class="container">
             <ul>
+
                 <!-- Free Shipping -->
                 <li>
-                    <div class="media-left"> <i class="flaticon-delivery-truck-1"></i> </div>
+                    <div class="media-left">
+                        <i class="flaticon-delivery-truck-1"></i>
+                    </div>
+
                     <div class="media-body">
-                        <h5>Miễn phí vận chuyển</h5>
-                        <span>Cho đơn hàng trên 500.000đ</span>
+                        <h5>{{ __('messages.free_shipping') }}</h5>
+                        <span>{{ __('messages.free_shipping_desc') }}</span>
                     </div>
                 </li>
+
                 <!-- Money Return -->
                 <li>
-                    <div class="media-left"> <i class="flaticon-arrows"></i> </div>
+                    <div class="media-left">
+                        <i class="flaticon-arrows"></i>
+                    </div>
+
                     <div class="media-body">
-                        <h5>Hoàn tiền</h5>
-                        <span>30 Ngày hoàn tiền</span>
+                        <h5>{{ __('messages.money_back') }}</h5>
+                        <span>{{ __('messages.money_back_desc') }}</span>
                     </div>
                 </li>
-                <!-- Support 24/7 -->
+
+                <!-- Support -->
                 <li>
-                    <div class="media-left"> <i class="flaticon-operator"></i> </div>
+                    <div class="media-left">
+                        <i class="flaticon-operator"></i>
+                    </div>
+
                     <div class="media-body">
-                        <h5>Hỗ trợ 24/7</h5>
-                        <span>Hotline: (+84) 123 456 7890</span>
+                        <h5>{{ __('messages.support') }}</h5>
+                        <span>{{ __('messages.support_desc') }}</span>
                     </div>
                 </li>
+
                 <!-- Safe Payment -->
                 <li>
-                    <div class="media-left"> <i class="flaticon-business"></i> </div>
+                    <div class="media-left">
+                        <i class="flaticon-business"></i>
+                    </div>
+
                     <div class="media-body">
-                        <h5>Thanh toán an toàn</h5>
-                        <span>Bảo vệ thanh toán trực tuyến</span>
+                        <h5>{{ __('messages.secure_payment') }}</h5>
+                        <span>{{ __('messages.secure_payment_desc') }}</span>
                     </div>
                 </li>
+
             </ul>
         </div>
     </section>
@@ -75,33 +92,52 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-pills margin-bottom-40" role="tablist">
-                <li role="presentation" class="active"><a href="#featur" aria-controls="featur" role="tab"
-                        data-toggle="tab">Mới nhất</a></li>
-                <li role="presentation"><a href="#special" aria-controls="special" role="tab" data-toggle="tab">Đặc biệt</a>
+
+                <li role="presentation" class="active">
+                    <a href="#featur" aria-controls="featur" role="tab" data-toggle="tab">
+                        {{ __('messages.latest') }}
+                    </a>
                 </li>
-                <li role="presentation"><a href="#on-sal" aria-controls="on-sal" role="tab" data-toggle="tab">Khuyến mãi</a>
+
+                <li role="presentation">
+                    <a href="#special" aria-controls="special" role="tab" data-toggle="tab">
+                        {{ __('messages.featured') }}
+                    </a>
                 </li>
+
+                <li role="presentation">
+                    <a href="#on-sal" aria-controls="on-sal" role="tab" data-toggle="tab">
+                        {{ __('messages.sale') }}
+                    </a>
+                </li>
+
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
+
                 <!-- Featured -->
                 <div role="tabpanel" class="tab-pane active fade in" id="featur">
-                    <!-- Items Slider -->
-                    <div class="item-slide-5 with-nav">
-                        <!-- Product -->
-                        @foreach ($products as $product)
+                    <div class="item-slide-5 with-bullet no-nav">
+
+                        @foreach($products as $product)
                             <div class="product">
-                                <article> <img class="img-responsive"
-                                        src="{{ asset("layout/images/products/" . $product->image) }}" alt="">
-                                    <!-- Content -->
-                                    <span class="tag">{{ $product->category->name }}</span> <a
-                                        href="{{ route('layout.product.detail', $product->slug) }}"
-                                        class="tittle">{{ $product->name }}</a>
-                                    <!-- Reviews -->
+                                <article>
+
+                                    <img class="img-responsive" src="{{ asset('layout/images/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}">
+
+                                    <span class="tag">
+                                        {{ $product->category->name ?? 'Category' }}
+                                    </span>
+
+                                    <a href="{{ route('layout.product.detail', $product->slug) }}" class="tittle">
+                                        {{ $product->name }}
+                                    </a>
+
                                     <p class="rev">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= ceil($product->star))
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= round($product->star))
                                                 <i class="fa fa-star"></i>
                                             @else
                                                 <i class="fa fa-star-o"></i>
@@ -109,203 +145,124 @@
                                         @endfor
 
                                         <span class="margin-left-10">
-                                            ({{ $product->review_count }}) Nhận xét
+                                            {{ $product->review_count }}
+                                            {{ __('messages.reviews') }}
                                         </span>
                                     </p>
-                                    <div class="price">{{ number_format($product->price, 0, ',', '.') }}₫</div>
-                                    <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}"><i
-                                            class="icon-basket-loaded"></i></a>
+
+                                    <div class="price">
+                                        {{ number_format($product->price, 0, ',', '.') }}₫
+                                    </div>
+
+                                    <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}">
+                                        <i class="icon-basket-loaded"></i>
+                                    </a>
+
                                 </article>
                             </div>
                         @endforeach
-                        <!-- Product -->
 
                     </div>
                 </div>
 
                 <!-- Special -->
                 <div role="tabpanel" class="tab-pane fade" id="special">
-                    <!-- Items Slider -->
-                    <div class="item-col-5">
+                    <div class="item-slide-5 with-bullet no-nav">
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-11.jpg" alt="">
-                                <!-- Content -->
-                                <span class="tag">{{ $categories->first()->name ?? 'Category' }}</span> <a href="#."
-                                    class="tittle">Laptop Alienware 15
-                                    i7 Perfect For Playing Game</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span
-                                        class="margin-left-10">5
-                                        Review(s)</span></p>
-                                <div class="price">$350.00 </div>
-                                <a href="{{ route('cart.add', $product->id) }}" class="cart-btn"><i
-                                        class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                        @foreach($products as $product)
+                            <div class="product">
+                                <article>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-9.jpg" alt=""> <span
-                                    class="sale-tag">-25%</span>
+                                    <img class="img-responsive" src="{{ asset('layout/images/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}">
 
-                                <!-- Content -->
-                                <span class="tag">Tablets</span> <a href="#." class="tittle">Mp3 Sumergible
-                                    Deportivo Slim Con 8GB</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span
-                                        class="margin-left-10">5
-                                        Review(s)</span></p>
-                                <div class="price">$350.00 <span>$200.00</span></div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                    <span class="tag">
+                                        {{ $product->category->name ?? 'Category' }}
+                                    </span>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-8.jpg" alt="">
-                                <!-- Content -->
-                                <span class="tag">Appliances</span> <a href="#." class="tittle">Reloj
-                                    Inteligente Smart Watch M26 Touch Bluetooh </a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span
-                                        class="margin-left-10">5
-                                        Review(s)</span></p>
-                                <div class="price">$350.00</div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                    <a href="{{ route('layout.product.detail', $product->slug) }}" class="tittle">
+                                        {{ $product->name }}
+                                    </a>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-7.jpg" alt=""> <span
-                                    class="new-tag">New</span>
+                                    <p class="rev">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= round($product->star))
+                                                <i class="fa fa-star"></i>
+                                            @else
+                                                <i class="fa fa-star-o"></i>
+                                            @endif
+                                        @endfor
 
-                                <!-- Content -->
-                                <span class="tag">Accessories</span> <a href="#." class="tittle">Teclado
-                                    Inalambrico Bluetooth Con Air Mouse</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span
-                                        class="margin-left-10">5
-                                        Review(s)</span></p>
-                                <div class="price">$350.00</div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                        <span class="margin-left-10">
+                                            {{ $product->review_count }}
+                                            {{ __('messages.reviews') }}
+                                        </span>
+                                    </p>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-6.jpg" alt="">
-                                <!-- Content -->
-                                <span class="tag">Appliances</span> <a href="#." class="tittle">Funda Para Ebook
-                                    7" 128GB full HD</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span
-                                        class="margin-left-10">5
-                                        Review(s)</span></p>
-                                <div class="price">$350.00</div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                    <div class="price">
+                                        {{ number_format($product->price, 0, ',', '.') }}₫
+                                    </div>
+
+                                    <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}">
+                                        <i class="icon-basket-loaded"></i>
+                                    </a>
+
+                                </article>
+                            </div>
+                        @endforeach
+
                     </div>
                 </div>
 
-                <!-- on sale -->
+                <!-- On Sale -->
                 <div role="tabpanel" class="tab-pane fade" id="on-sal">
-                    <!-- Items Slider -->
-                    <div class="item-col-5">
+                    <div class="item-slide-5 with-bullet no-nav">
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-3.jpg" alt="">
-                                <!-- Content -->
-                                <span class="tag">Latop</span> <a href="#." class="tittle">Laptop Alienware 15
-                                    i7 Perfect For Playing Game</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <span
-                                        class="margin-left-10">5
-                                        Review(s)</span></p>
-                                <div class="price">$350.00 </div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                        @foreach($products as $product)
+                            <div class="product">
+                                <article>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-1.jpg" alt=""> <span
-                                    class="sale-tag">-25%</span>
+                                    <img class="img-responsive" src="{{ asset('layout/images/products/' . $product->image) }}"
+                                        alt="{{ $product->name }}">
 
-                                <!-- Content -->
-                                <span class="tag">Tablets</span> <a href="#." class="tittle">Mp3 Sumergible
-                                    Deportivo Slim Con 8GB</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star"></i> <span
-                                        class="margin-left-10">5 Review(s)</span>
-                                </p>
-                                <div class="price">$350.00 <span>$200.00</span></div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                    <span class="tag">
+                                        {{ $product->category->name ?? 'Category' }}
+                                    </span>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-2.jpg" alt="">
-                                <!-- Content -->
-                                <span class="tag">Appliances</span> <a href="#." class="tittle">Reloj
-                                    Inteligente Smart Watch M26 Touch Bluetooh </a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star"></i> <span
-                                        class="margin-left-10">5 Review(s)</span>
-                                </p>
-                                <div class="price">$350.00</div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                    <a href="{{ route('layout.product.detail', $product->slug) }}" class="tittle">
+                                        {{ $product->name }}
+                                    </a>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-5.jpg" alt=""> <span
-                                    class="new-tag">New</span>
+                                    <p class="rev">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= round($product->star))
+                                                <i class="fa fa-star"></i>
+                                            @else
+                                                <i class="fa fa-star-o"></i>
+                                            @endif
+                                        @endfor
 
-                                <!-- Content -->
-                                <span class="tag">Accessories</span> <a href="#." class="tittle">Teclado
-                                    Inalambrico Bluetooth Con Air Mouse</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star"></i> <span
-                                        class="margin-left-10">5 Review(s)</span>
-                                </p>
-                                <div class="price">$350.00</div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                        <span class="margin-left-10">
+                                            {{ $product->review_count }}
+                                            {{ __('messages.reviews') }}
+                                        </span>
+                                    </p>
 
-                        <!-- Product -->
-                        <div class="product">
-                            <article> <img class="img-responsive" src="images/item-img-1-4.jpg" alt="">
-                                <!-- Content -->
-                                <span class="tag">Appliances</span> <a href="#." class="tittle">Funda Para Ebook
-                                    7" 128GB full HD</a>
-                                <!-- Reviews -->
-                                <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star"></i> <span
-                                        class="margin-left-10">5 Review(s)</span>
-                                </p>
-                                <div class="price">$350.00</div>
-                                <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a>
-                            </article>
-                        </div>
+                                    <div class="price">
+                                        {{ number_format($product->price, 0, ',', '.') }}₫
+                                    </div>
+
+                                    <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}">
+                                        <i class="icon-basket-loaded"></i>
+                                    </a>
+
+                                </article>
+                            </div>
+                        @endforeach
+
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -316,7 +273,7 @@
 
             <!-- heading -->
             <div class="heading">
-                <h2>Bán chạy trong tuần</h2>
+                <h2>{{ __('messages.top_selling_week') }}</h2>
                 <hr>
             </div>
 
@@ -327,10 +284,9 @@
                 <div class="product col-2x">
                     <div class="like-bnr">
                         <div class="position-center-center">
-                            <h5>Smart Watch 2.0</h5>
-                            <p>Space Gray Aluminum Case
-                                with Black/Volt Real Sport Band <span>38mm | 42mm</span> </p>
-                            <a href="#." class="btn-round">View Detail</a>
+                            <a href="#." class="btn-round">
+                                {{ __('messages.view_detail') }}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -356,7 +312,8 @@
                                 @endfor
 
                                 <span class="margin-left-10">
-                                    ({{ $product->review_count }}) Nhận xét
+                                    ({{ $product->review_count }})
+                                    {{ __('messages.reviews') }}
                                 </span>
                             </p>
                             <div class="price">{{ number_format($product->price, 0, ',', '.') }}₫</div>
@@ -385,7 +342,10 @@
 
                             {{ $category->name }}
 
-                            <span>({{ $category->products->where('status', 1)->count() }}) sản phẩm</span>
+                            <span>
+                                ({{ $category->products->where('status', 1)->count() }})
+                                {{ __('messages.products') }}
+                            </span>
                         </a>
                     </li>
                 @endforeach
@@ -399,64 +359,54 @@
 
                     <div role="tabpanel" class="tab-pane fade {{ $key == 0 ? 'active in' : '' }}" id="tab{{ $category->id }}">
 
-                        <div class="row">
+                        <div class="item-slide-5 with-bullet no-nav">
 
                             @forelse($category->products->where('status', 1)->take(8) as $product)
 
-                                <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
-                                    <div class="product">
-                                        <article>
+                                <div class="product">
+                                    <article>
 
-                                            {{-- Image --}}
-                                            <img class="img-responsive"
-                                                src="{{ asset('layout/images/products/' . $product->image) }}"
-                                                alt="{{ $product->name }}">
+                                        <img class="img-responsive" src="{{ asset('layout/images/products/' . $product->image) }}"
+                                            alt="{{ $product->name }}">
 
-                                            {{-- Tag --}}
-                                            <span class="tag">
-                                                {{ $category->name }}
+                                        <span class="tag">
+                                            {{ $category->name }}
+                                        </span>
+
+                                        <a href="{{ route('layout.product.detail', $product->slug) }}" class="tittle">
+                                            {{ $product->name }}
+                                        </a>
+
+                                        <p class="rev">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                @if($i <= $product->star)
+                                                    <i class="fa fa-star"></i>
+                                                @else
+                                                    <i class="fa fa-star-o"></i>
+                                                @endif
+                                            @endfor
+
+                                            <span class="margin-left-10">
+                                                {{ $product->review_count }} {{ __('messages.reviews') }}
                                             </span>
+                                        </p>
 
-                                            {{-- Name --}}
-                                            <a href="{{ route('layout.product.detail', $product->slug) }}" class="tittle">
-                                                {{ $product->name }}
-                                            </a>
+                                        <div class="price">
+                                            {{ number_format($product->price, 0, ',', '.') }}₫
+                                        </div>
 
-                                            {{-- Reviews --}}
-                                            <p class="rev">
+                                        <a href="javascript:void(0)" class="cart-btn add-cart-btn" data-id="{{ $product->id }}">
+                                            <i class="icon-basket-loaded"></i>
+                                        </a>
 
-                                                @for($i = 1; $i <= 5; $i++)
-                                                    @if($i <= $product->star)
-                                                        <i class="fa fa-star"></i>
-                                                    @else
-                                                        <i class="fa fa-star-o"></i>
-                                                    @endif
-                                                @endfor
-
-                                                <span class="margin-left-10">
-                                                    {{ $product->review_count }} Nhận xét
-                                                </span>
-
-                                            </p>
-
-                                            {{-- Price --}}
-                                            <div class="price">
-                                                {{ number_format($product->price, 0, ',', '.') }}₫
-                                            </div>
-
-                                            {{-- Cart --}}
-                                            <a href="javascript:void(0)" class="cart-btn add-cart-btn"
-                                                data-id="{{ $product->id }}"><i class="icon-basket-loaded"></i></a>
-
-                                        </article>
-                                    </div>
+                                    </article>
                                 </div>
 
                             @empty
 
-                                <div class="col-12 text-center py-5">
-                                    No products found.
-                                </div>
+                                <p class="text-center py-5">
+                                    {{ __('messages.no_products') }}
+                                </p>
 
                             @endforelse
 
@@ -476,7 +426,7 @@
 
             <!-- heading -->
             <div class="heading">
-                <h2>Bài viết của chúng tôi</h2>
+                <h2>{{ __('messages.our_blog') }}</h2>
                 <hr>
             </div>
             <div id="blog-slide" class="with-nav">
@@ -487,11 +437,11 @@
                                 alt="{{ $blog->title }}"> <span><i class="fa fa-bookmark-o"></i>
                                 {{ \Carbon\Carbon::parse($blog->created_at)->format('d/m/Y') }}</span> <span><i
                                     class="fa fa-comment-o"></i> {{ $blog->comment  }}
-                                Bình luận</span> <a href="#." class="tittle">{{ $blog->title  }}</a>
+                                {{ __('messages.comments') }}</span> <a href="#." class="tittle">{{ $blog->title  }}</a>
                             <p>
                                 {{ \Illuminate\Support\Str::limit(strip_tags($blog->description), 150) }}
                             </p>
-                            <a href="#.">Đọc thêm</a>
+                            <a href="#.">{{ __('messages.read_more') }}</a>
                         </article>
                     </div>
                 @endforeach
@@ -520,18 +470,18 @@
 
                 <div class="col-md-6">
                     <h3>
-                        Đăng ký nhận bản tin
+                        {{ __('messages.newsletter') }}
                         <span>
-                            Nhận ngay <strong>ưu đãi 25%</strong> cho đơn hàng đầu tiên!
+                            {{ __('messages.newsletter_desc') }}
                         </span>
                     </h3>
                 </div>
 
                 <div class="col-md-6">
                     <form>
-                        <input type="email" placeholder="Nhập địa chỉ email của bạn...">
+                        <input type="email" placeholder="{{ __('messages.email_placeholder') }}" required>
                         <button type="submit">
-                            Đăng ký
+                            {{ __('messages.subscribe') }}
                         </button>
                     </form>
                 </div>
@@ -539,5 +489,18 @@
             </div>
         </div>
     </section>
+    <style>
+        .tittle {
+            display: -webkit-box !important;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
 
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            white-space: normal;
+            line-height: 24px;
+            max-height: 48px;
+        }
+    </style>
 @endsection

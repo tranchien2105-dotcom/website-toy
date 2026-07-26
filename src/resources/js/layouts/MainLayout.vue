@@ -62,6 +62,10 @@
                     📝 <span v-if="!isCollapsed">Blogs</span>
                 </router-link>
 
+                <router-link to="/settings">
+                    ⚙️ <span v-if="!isCollapsed">Settings</span>
+                </router-link>
+
 
             </nav>
 

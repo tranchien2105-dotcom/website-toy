@@ -17,6 +17,7 @@ import CategoryDetail from '../pages/CategoryDetail.vue'
 import Blogs from '../pages/Blogs.vue'
 import AddBlog from '../pages/AddBlog.vue'
 import BlogDetail from '../pages/BlogDetail.vue'
+import Settings from '../pages/Settings.vue'
 
 const routes = [
 
@@ -96,6 +97,11 @@ const routes = [
             {
                 path: 'blogs/:id',
                 component: BlogDetail,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'settings',
+                component: Settings,
                 meta: { requiresAuth: true }
             }
         ]

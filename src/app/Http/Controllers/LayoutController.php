@@ -266,4 +266,29 @@ class LayoutController extends Controller
         return view('layouts.login');
     }
 
+    public function searchSuggestion(Request $request)
+    {
+        $keyword = $request->keyword;
+        $categoryId = $request->category_id;
+
+        $query = Product::where('status', 1);
+
+        if ($keyword) {
+            $query->where('name', 'like', "%{$keyword}%");
+        }
+
+        // Nếu chọn category thì lọc
+        if (!empty($categoryId)) {
+            $query->where('category_id', $categoryId);
+        }
+
+        $products = $query
+            ->select('id', 'name', 'slug', 'image')
+            ->orderBy('created_at', 'desc')
+            ->limit(8)
+            ->get();
+
+        return response()->json($products);
+    }
+
 }

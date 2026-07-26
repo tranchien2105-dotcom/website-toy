@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryAdminController;
 use App\Http\Controllers\OrderAdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Jobs\TestJob;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -180,3 +181,11 @@ Route::prefix('blogs')
 
         Route::put('/{id}', [BlogAdminController::class, 'updateBlog']);
     });
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/settings', [SettingController::class, 'show']);
+
+    Route::put('/settings', [SettingController::class, 'update']);
+
+});

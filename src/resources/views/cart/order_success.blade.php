@@ -77,7 +77,7 @@
 
                             <div style="margin-top:30px">
 
-                                <a href="{{ url('/') }}" class="btn btn-primary btn-lg">
+                                <a href="{{ url('/') }}" class="btn btn-theme btn-lg">
 
                                     <i class="fa fa-shopping-bag"></i>
 
@@ -97,5 +97,27 @@
 
         </div>
     </section>
+
+    <style>
+        .btn-theme {
+
+            background: var(--primary);
+
+            border-color: var(--primary);
+
+            color: #fff;
+
+        }
+
+        .btn-theme:hover {
+
+             background: color-mix(in srgb, var(--primary) 85%, black);
+
+            border-color: black;
+
+            color: #fff;
+
+        }
+    </style>
 
 @endsection

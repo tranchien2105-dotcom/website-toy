@@ -3166,7 +3166,7 @@ header .navbar li a:before {
 	height: 100%;
 	width: 0px;
 	z-index: -1;
-	background: #0077b2;
+	background: color-mix(in srgb, var(--primary) 85%, black);
 	content: "";
 	-webkit-transition: 0.2s ease-in-out;
 	-moz-transition: 0.2s ease-in-out;
@@ -3183,7 +3183,7 @@ header .navbar li.active a:before {
 	bottom: 0px;
 	height: 100%;
 	width: 100%;
-	background: #0077b2;
+	background: color-mix(in srgb, var(--primary) 85%, black);
 	content: "";
 	-webkit-transition: 0.2s ease-in-out;
 	-moz-transition: 0.2s ease-in-out;
@@ -3329,7 +3329,7 @@ header .search-cate .bootstrap-select .dropdown-toggle:focus {
 	outline: none !important;
 }
 header nav {
-	background: #0088cc;
+	background: var(--primary);
 }
 .light-gry-bg {
 	background: #f8f8f8;
@@ -3401,7 +3401,7 @@ header nav {
 	width: 20px;
 	position: absolute;
 	display: inline-block;
-	background: #0088cc;
+	background: var(--primary);
 	text-align: center;
 	line-height: 20px;
 	border-radius: 50%;
@@ -3504,7 +3504,7 @@ header nav {
 	float: left;
 	display: inline-block;
 	color: #fff !important;
-	background: #0a95da;
+	background: var(--primary);
 	padding: 15px 20px;
 	font-size: 17px;
 	font-weight: bold;

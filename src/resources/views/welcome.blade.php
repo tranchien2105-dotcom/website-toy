@@ -29,6 +29,16 @@
 
     <!-- JavaScripts -->
     <script src="{{ asset('layout/js/vendors/modernizr.js') }}"></script>
+    <style>
+        :root {
+            --primary:
+                {{ $setting->primary_color }}
+            ;
+            --secondary:
+                {{ $setting->secondary_color }}
+            ;
+        }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -45,12 +55,13 @@
         <!-- Top bar -->
         <div class="top-bar">
             <div class="container">
-                <p>Tạp hoá MinhChien</p>
+                <p>{{ __('messages.store_name') }}</p>
                 <div class="right-sec">
                     <ul>
+
                         @guest
                             <li>
-                                <a href="{{ route('layout.login') }}">Đăng nhập / Đăng ký</a>
+                                <a href="{{ route('layout.login') }}">{{ __('messages.login_register') }}</a>
                             </li>
                         @else
                             <li class="dropdown">
@@ -60,11 +71,11 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="">Thông tin cá nhân</a>
+                                        <a href="">{{ __('messages.profile') }}</a>
                                     </li>
 
                                     <li>
-                                        <a href="">Đơn hàng</a>
+                                        <a href="">{{ __('messages.orders') }}</a>
                                     </li>
 
                                     <li>
@@ -72,7 +83,7 @@
                                             @csrf
                                             <button type="submit"
                                                 style="background:none;border:none;padding:8px 20px;width:100%;text-align:left;">
-                                                Đăng xuất
+                                                {{ __('messages.logout') }}
                                             </button>
                                         </form>
                                     </li>
@@ -81,9 +92,16 @@
                         @endguest
 
                         <li>
-                            <select class="selectpicker">
-                                <option>English</option>
-                                <option>Vietnamese</option>
+                            <select class="selectpicker" onchange="window.location.href=this.value">
+
+                                <option value="{{ route('language', 'en') }}" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>
+                                    English
+                                </option>
+
+                                <option value="{{ route('language', 'vi') }}" {{ app()->getLocale() == 'vi' ? 'selected' : '' }}>
+                                    Tiếng Việt
+                                </option>
+
                             </select>
                         </li>
                     </ul>
@@ -101,11 +119,11 @@
                     </a>
                 </div>
                 <div class="search-cate">
-                    <select class="selectpicker" name="category_id">
-                        <option value="">Tất cả danh mục</option>
+                    <select class="selectpicker" name="category_id" id="category-search">
+                        <option value="">{{ __('messages.all_categories') }}</option>
 
                         @php
-                            $categories = getCategories();
+                            $categories = getCategories(true);
                         @endphp
 
                         @foreach ($categories as $category)
@@ -114,8 +132,15 @@
                             </option>
                         @endforeach
                     </select>
-                    <input type="search" placeholder="Tìm kiếm sản phẩm...">
-                    <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
+                    <input id="search-product" type="search" placeholder="{{ __('messages.search_product') }}"
+                        autocomplete="off">
+
+                    <button class="submit">
+                        <i class="icon-magnifier"></i>
+                    </button>
+
+                    <div id="search-result" class="search-result"></div>
+
                 </div>
 
                 <!-- Cart Part -->
@@ -137,10 +162,10 @@
 
                             <span class="itm-cont">{{ $totalQty }}</span>
                             <i class="flaticon-shopping-bag"></i>
-                            <strong>Giỏ hàng</strong> <br>
+                            <strong>{{ __('messages.cart') }}</strong> <br>
 
                             <span>
-                                ({{ $totalQty }}) Sản phẩm -
+                                ({{ $totalQty }}) {{ __('messages.products') }} -
                                 {{ number_format($grandTotal, 0, ',', '.') }}₫
                             </span>
                         </a>
@@ -170,13 +195,13 @@
 
                             @empty
                                 <li class="text-center" style="padding:15px;">
-                                    Giỏ hàng trống
+                                    {{ __('messages.cart_is_empty') }}
                                 </li>
                             @endforelse
 
                             <li class="btn-cart">
                                 <a href="{{ route('layout.cart') }}" class="btn-round">
-                                    Xem giỏ hàng
+                                    {{ __('messages.view_cart') }}
                                 </a>
                             </li>
 
@@ -199,7 +224,7 @@
 
                     <div class="cate-lst">
                         <a data-toggle="collapse" class="cate-style" href="#cater">
-                            <i class="fa fa-list-ul"></i> Thể loại sản phẩm
+                            <i class="fa fa-list-ul"></i> {{ __('messages.all_categories') }}
                         </a>
 
                         <div class="cate-bar-in">
@@ -258,9 +283,12 @@
                     <!-- NAV -->
                     <div class="collapse navbar-collapse" id="nav-open-btn">
                         <ul class="nav">
-
-                            <li class="dropdown"> <a href="index.html" class="dropdown-toggle"
-                                    data-toggle="dropdown">Trang web </a>
+                            <li> <a href="/">{{ __('messages.home')}} </a></li>
+                            <li> <a href="/blog">{{ __('messages.blog') }} </a></li>
+                            <li> <a href="/about">{{ __('messages.about_us') }} </a></li>
+                            <li> <a href="/contact">{{ __('messages.contact') }} </a></li>
+                            <li class="dropdown"> <a href="index.html" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{ __('messages.page') }} </a>
                                 <ul class="dropdown-menu multi-level animated-2s fadeInUpHalf">
                                     <li><a href="About.html"> About </a></li>
                                     <li><a href="LoginForm.html"> Login Form </a></li>
@@ -284,13 +312,14 @@
                             </li>
 
 
+
                         </ul>
                     </div>
 
                     <!-- NAV RIGHT -->
-                    <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Điện
-                                thoại:</strong>
-                            (+84) 123 456 7890</span> </div>
+                    <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i>
+                            <strong>{{ __('messages.phone') }}:</strong>
+                            {{ $setting->phone }}</span> </div>
                 </div>
             </nav>
         </header>
@@ -312,24 +341,24 @@
                 <!-- Footer Upside Links -->
                 <div class="foot-link">
                     <ul>
-                        <li><a href="#.">Giới thiệu</a></li>
-                        <li><a href="#.">Hỗ trợ khách hàng</a></li>
-                        <li><a href="#.">Chính sách bảo mật</a></li>
-                        <li><a href="#.">Sơ đồ website</a></li>
-                        <li><a href="#.">Tìm kiếm sản phẩm</a></li>
-                        <li><a href="#.">Tìm kiếm nâng cao</a></li>
-                        <li><a href="#.">Đơn hàng & Đổi trả</a></li>
-                        <li><a href="#.">Liên hệ</a></li>
+                        <li><a href="#.">{{ __('messages.about') }}</a></li>
+                        <li><a href="#.">{{ __('messages.customer_support') }}</a></li>
+                        <li><a href="#.">{{ __('messages.privacy_policy') }}</a></li>
+                        <li><a href="#.">{{ __('messages.sitemap') }}</a></li>
+                        <li><a href="#.">{{ __('messages.search_product') }}</a></li>
+                        <li><a href="#.">{{ __('messages.advanced_search') }}</a></li>
+                        <li><a href="#.">{{ __('messages.order_return') }}</a></li>
+                        <li><a href="#.">{{ __('messages.contact') }}</a></li>
                     </ul>
                 </div>
                 <div class="row">
 
                     <!-- Contact -->
                     <div class="col-md-4">
-                        <h4>Liện hệ với chúng tôi!</h4>
-                        <p>Địa chỉ: 102/46 Hồ Biểu Chánh, Phường 11, Quận Phú Nhuận, TP.HCM,</p>
-                        <p>Điện thoại: (+84) 123 456 7890</p>
-                        <p>Email: info@minhchienstore.com</p>
+                        <h4>{{ __('messages.contact_us') }}</h4>
+                        <p>{{ __('messages.address') }}: 102/46 Hồ Biểu Chánh, Phường 11, Quận Phú Nhuận, TP.HCM</p>
+                        <p>{{ __('messages.phone') }}: {{ $setting->phone }}</p>
+                        <p>{{ __('messages.email') }}: {{ $setting->email }}</p>
                         <div class="social-links"> <a href="#."><i class="fa fa-facebook"></i></a> <a href="#."><i
                                     class="fa fa-twitter"></i></a> <a href="#."><i class="fa fa-linkedin"></i></a> <a
                                 href="#."><i class="fa fa-pinterest"></i></a> <a href="#."><i
@@ -339,7 +368,7 @@
 
                     <!-- Categories -->
                     <div class="col-md-3">
-                        <h4>Thể loại</h4>
+                        <h4>{{ __('messages.all_categories') }}</h4>
                         <!-- #region -->
                         @php
                             $categorieParent = getCategories(true);
@@ -354,26 +383,28 @@
 
                     <!-- Categories -->
                     <div class="col-md-3">
-                        <h4>Hỗ trợ khách hàng</h4>
+                        <h4>{{ __('messages.customer_support') }}</h4>
+
                         <ul class="links-footer">
-                            <li><a href="#.">Chính sách giao hàng</a></li>
-                            <li><a href="#.">Đổi trả & hoàn tiền</a></li>
-                            <li><a href="#.">Hướng dẫn mua hàng</a></li>
-                            <li><a href="#.">Phương thức thanh toán</a></li>
-                            <li><a href="#.">Liên hệ hỗ trợ</a></li>
+                            <li><a href="#.">{{ __('messages.shipping_policy') }}</a></li>
+                            <li><a href="#.">{{ __('messages.refund_policy') }}</a></li>
+                            <li><a href="#.">{{ __('messages.buying_guide') }}</a></li>
+                            <li><a href="#.">{{ __('messages.payment_method') }}</a></li>
+                            <li><a href="#.">{{ __('messages.contact_support') }}</a></li>
                         </ul>
                     </div>
 
                     <!-- Information -->
                     <div class="col-md-2">
-                        <h4>Thông tin</h4>
+                        <h4>{{ __('messages.information') }}</h4>
+
                         <ul class="links-footer">
-                            <li><a href="#.">Giới thiệu</a></li>
-                            <li><a href="#.">Tin tức</a></li>
-                            <li><a href="#.">Chính sách bảo mật</a></li>
-                            <li><a href="#.">Điều khoản sử dụng</a></li>
-                            <li><a href="#.">Hệ thống cửa hàng</a></li>
-                            <li><a href="#.">Câu hỏi thường gặp</a></li>
+                            <li><a href="#.">{{ __('messages.about') }}</a></li>
+                            <li><a href="#.">{{ __('messages.news') }}</a></li>
+                            <li><a href="#.">{{ __('messages.privacy_policy') }}</a></li>
+                            <li><a href="#.">{{ __('messages.terms') }}</a></li>
+                            <li><a href="#.">{{ __('messages.store_system') }}</a></li>
+                            <li><a href="#.">{{ __('messages.faq') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -385,8 +416,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Copyright © 2026 <a href="#." class="ri-li"> Tạp hoá MinhChien</a>
-                        <p>
+                        <p> {{ $setting->copyright }} <a href="#." class="ri-li"> {{ $setting->site_name }}</a></p>
                     </div>
                     <div class="col-sm-6 text-right"> <img src="{{ asset('layout/images/card-icon.png') }}" alt="">
                     </div>
@@ -446,6 +476,123 @@
 
         });
     </script>
+    <script>
+
+        let timeout;
+
+        $('#search-product').on('keyup', function () {
+
+            clearTimeout(timeout);
+
+            let keyword = $(this).val();
+
+            timeout = setTimeout(function () {
+
+                let category = $('#category-search').val();
+
+                $.ajax({
+                    url: "{{ route('search.suggestion') }}",
+                    type: "GET",
+                    data: {
+                        keyword: keyword,
+                        category_id: category
+                    },
+                    success: function (products) {
+
+                        let html = '';
+
+                        products.forEach(product => {
+
+                            html += `
+                        <a class="search-item"
+                           href="/products/${product.slug}">
+                            <img src="/layout/images/products/${product.image}">
+                            <span>${product.name}</span>
+                        </a>
+                    `;
+
+                        });
+
+                        $('#search-result').html(html).show();
+
+                    }
+                });
+
+            }, 300);
+
+        });
+
+        $(document).click(function (e) {
+
+            if (!$(e.target).closest('.search-box').length) {
+
+                $('#search-result').hide();
+
+            }
+
+        });
+
+    </script>
+    <style>
+        .search-cate {
+            position: relative;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-result {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+
+            background: #fff;
+            border: 1px solid #eee;
+
+            z-index: 9999;
+
+            display: none;
+
+            max-height: 400px;
+            overflow-y: auto;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+        }
+
+        .search-item {
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 10px;
+
+            text-decoration: none;
+
+            color: #333;
+        }
+
+        .search-item:hover {
+            background: #f7f7f7;
+        }
+
+        .search-item img {
+
+            width: 55px;
+            height: 55px;
+
+            object-fit: cover;
+        }
+
+        .search-item span {
+
+            font-size: 14px;
+        }
+    </style>
 </body>
 
 </html>

@@ -192,7 +192,7 @@ section {
 }
 .heading hr:before {
 	height: 2px;
-	background: #0088cc;
+	background: var(--primary);
 	content: "";
 	position: absolute;
 	top: -1px;
@@ -494,7 +494,7 @@ section {
 	font-weight: normal;
 }
 .big-nsv .nav li.active a {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 }
 .main-tabs-sec .nav li.active a span {
@@ -658,7 +658,7 @@ section {
 	font-weight: normal;
 }
 .slid-sec .like-bnr h4 {
-	color: #0088cc;
+	color: var(--primary);
 	font-weight: 800;
 	font-size: 26px;
 	margin: 0px;
@@ -694,11 +694,11 @@ section {
 	padding: 10px 20px !important;
 }
 .featur-tabs .nav-tabs>li a:hover {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 }
 .featur-tabs .nav-tabs>li.active a {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 	font-weight: bold;
 }
@@ -721,7 +721,7 @@ section {
 	background: #fff;
 }
 .with-nav .owl-nav div:hover {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 	border: 1px solid #0088cc;
 }
@@ -787,7 +787,7 @@ section {
 }
 .shipping-info li i {
 	font-size: 38px;
-	color: #0088cc;
+	color: var(--primary);
 	margin-right: 10px;
 	line-height: 36px;
 }
@@ -826,7 +826,7 @@ section {
 	font-size: 13px;
 }
 .product article .tittle {
-	color: #0168b8;
+	color: var(--primary);
 	font-size: 14px;
 	display: inline-block;
 	min-height: 40px;
@@ -867,7 +867,7 @@ section {
 	max-width: 100%;
 }
 .product article .new-tag {
-	background: #0088cc;
+	background: var(--primary);
 	border-radius: 2px;
 	font-size: 13px;
 	color: #fff;
@@ -889,7 +889,7 @@ section {
 	margin-top: -15px;
 }
 .product article .cart-btn:hover {
-	background: #0168b8;
+	background: var(--primary);
 	color: #fff !important;
 }
 .product article .rev i {
@@ -967,7 +967,7 @@ section {
 	top: 7px;
 }
 .col-list .product article .heart:hover {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 	border: 1px solid #0088cc;
 }
@@ -1037,7 +1037,7 @@ section {
 	width: 40%;
 }
 .like-bnr {
-	background: #f5f5f5 url(../images/watch-bg.jpg) right center no-repeat;
+	background: #f5f5f5 url(../images/banner3.jpg) right center no-repeat;
 	position: relative;
 	min-height: 341px;
 }
@@ -1065,7 +1065,7 @@ section {
 	display: inline-block;
 	padding: 10px 20px;
 	border-radius: 50px;
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 }
 .btn-round.big {
@@ -1181,7 +1181,7 @@ section {
 	font-weight: normal;
 }
 .main-tabs-sec .nav li.active a {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 	border: 1px solid #0088cc;
 }
@@ -1192,7 +1192,7 @@ section {
 	left: 0px;
 	z-index: 2;
 	font-size: 30px;
-	color: #0088cc;
+	color: var(--primary);
 	bottom: -25px;
 	right: 0px;
 	width: 100%;
@@ -1219,7 +1219,7 @@ section {
 	font-weight: 14px;
 }
 .blog-post a {
-	color: #0088cc;
+	color: var(--primary);
 }
 .blog-post .tittle {
 	font-weight: bold;
@@ -2085,7 +2085,7 @@ section {
 			Newslatter
 ========================================================*/
 .newslatter {
-	background: #0088cc;
+	background: var(--primary);
 	padding: 40px 0;
 	position: relative;
 	overflow: hidden;
@@ -2122,15 +2122,15 @@ section {
 	border-radius: 50px;
 	height: 50px;
 	width: 100%;
-	color: #000;
+	color: #000;.cả
 	border: none;
 	background: #fff;
 	padding: 0 20px;
 	font-size: 15px;
 }
 .newslatter button {
-	border: none;
-	background: #006699;
+	border: solid 1px;
+	background: var(--primary);
 	height: 50px;
 	line-height: 50px;
 	color: #fff;
@@ -2503,7 +2503,7 @@ section {
 	position: absolute;
 	right: 0px;
 	color: #fff;
-	background: #0088cc;
+	background: var(--primary);
 	border: none;
 	width: 40px;
 	top: 0px;
@@ -2618,8 +2618,8 @@ section {
 	margin-top: 10px;
 }
 .shop-side-bar .sizes a.choosed {
-	background: #0088cc;
-	border-color: #0088cc;
+	background: var(--primary);
+	border-color: var(--primary);
 	color: #fff;
 }
 .shop-side-bar .rating a {
@@ -2638,8 +2638,8 @@ section {
 	margin-left: 5px;
 }
 .shop-side-bar .sizes a:hover {
-	background: #0088cc;
-	border-color: #0088cc;
+	background: var(--primary);
+	border-color: var(--primary);
 	color: #fff;
 }
 .shop-side-bar li {
@@ -2662,8 +2662,8 @@ section {
 	margin-left: 5px;
 }
 .checkbox-primary input[type="checkbox"]:checked + label::before, .checkbox-primary input[type="radio"]:checked + label::before {
-	background: #0088cc;
-	border-color: #0088cc;
+	background: var(--primary);
+	border-color: var(--primary);
 }
 .recent-post .media-left a {
 	display: inline-block;
@@ -2784,7 +2784,7 @@ section {
 	text-align: center;
 }
 .noUi-horizontal .noUi-handle {
-	background: #0088cc;
+	background: var(--primary);
 	border: none;
 	height: 12px;
 	width: 12px;
@@ -2957,7 +2957,7 @@ section {
 }
 .progress-bar {
 	border-radius: 0px;
-	background: #0088cc;
+	background: var(--primary);
 	height: 9px;
 	box-shadow: none;
 }
@@ -3288,7 +3288,7 @@ footer .social p a {
 	font-size: 16px;
 }
 .short-lst .grid-layer a.active {
-	color: #0088cc;
+	color: var(--primary);
 }
 .short-lst .bootstrap-select.btn-group .dropdown-toggle .caret {
 	right: 0px;
@@ -3315,7 +3315,7 @@ footer .social p a {
 }
 .order-success i {
 	border: 2px solid #0088cc;
-	color: #0088cc;
+	color: var(--primary);
 	height: 97px;
 	width: 97px;
 	border-radius: 50%;
@@ -3323,10 +3323,10 @@ footer .social p a {
 	line-height: 93px;
 }
 .order-success.error-page a {
-	color: #0088cc;
+	color: var(--primary);
 }
 .order-success.error-page h3 span {
-	color: #0088cc;
+	color: var(--primary);
 }
 .order-success.error-page h3 {
 	font-size: 36px;
@@ -3360,7 +3360,7 @@ footer .social p a {
 	border: 1px solid #333;
 }
 .pagination li a.active {
-	background: #0088cc;
+	background: var(--primary);
 	color: #fff;
 	border: 1px solid #0088cc;
 }
@@ -4108,7 +4108,7 @@ footer .social p a {
 .product-detail .product .sizes a.active {
 	border: 1px solid #0088cc;
 	color: #fff;
-	background: #0088cc;
+	background: var(--primary);
 }
 .product-detail .product .bullet-round-list li {
 	line-height: 24px;
@@ -4179,7 +4179,7 @@ footer .social p a {
 .item-tabs-sec .nav li.active a:before {
 	height: 2px;
 	width: 100%;
-	background: #0088cc;
+	background: var(--primary);
 	content: "";
 	position: absolute;
 	bottom: 0px;
@@ -4461,8 +4461,8 @@ footer .social p a {
 	font-size: 28px;
 }
 .ship-process li.current i {
-	color: #0088cc;
-	border: 2px solid #0088cc;
+	color: var(--primary);
+	border: 2px solid var(--primary);
 }
 /*=======================================================
 			Newslatter IE
@@ -4923,13 +4923,13 @@ footer .social p a {
 	color: #222222;
 }
 .layout-8 .slid-sec .like-bnr h4 {
-	color: #0088cc !important;
+	color: var(--primary) !important;
 }
 .layout-8 .slid-sec .like-bnr .price {
 	font-size: 30px;
 }
 .layout-8 .shop-listing .media-body a {
-	color: #0168b8;
+	color: var(--primary);
 }
 /*=======================================================
 			Layout 9
@@ -5184,7 +5184,7 @@ footer .social p a {
 	color: #333333;
 }
 .layout-10 .weekly-deal .tittle {
-	color: #0168b8;
+	color: var(--primary);
 }
 .layout-10 .shop-listing .media {
 	margin-bottom: 30px;
@@ -5196,7 +5196,7 @@ footer .social p a {
 	margin-left: 10px;
 }
 .layout-10 .shop-listing .media-body a {
-	color: #0168b8 !important;
+	color: var(--primary) !important;
 	display: inline-block;
 	line-height: 18px;
 	margin-top: 0px;
@@ -6362,7 +6362,7 @@ footer .social p a {
 	border: 1px solid #d5d5d5;
 }
 .with-bullet .owl-dots div.active {
-	background: #0088cc;
+	background: var(--primary);
 	border: 1px solid #0088cc;
 }
 .shop-side-bar .search input {
@@ -6382,5 +6382,5 @@ footer .social p a {
 }
 .ri-li {
 	font-weight: bold;
-	color: #0088cc !important;
+	color: var(--primary) !important;
 }

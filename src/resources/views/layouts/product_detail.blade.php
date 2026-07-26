@@ -218,7 +218,7 @@
                                         <div class="quinty">
                                             <input type="number" value="01">
                                         </div>
-                                        <a href="{{ route('cart.add', $product->id) }}" class="btn-round"><i
+                                        <a href="javascript:void(0)" class="btn-round add-cart-btn" data-id="{{ $product->id }}"><i
                                                 class="icon-basket-loaded margin-right-5"></i> Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
