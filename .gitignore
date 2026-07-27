@@ -11,6 +11,10 @@ src/node_modules
 src/public/build
 src/storage
 
+# Local secret files
+key
+key.pub
+
 # OS files
 .DS_Store
 Thumbs.db
