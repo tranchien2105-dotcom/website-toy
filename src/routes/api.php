@@ -4,6 +4,7 @@ use App\Http\Controllers\BannerAdminController;
 use App\Http\Controllers\BlogAdminController;
 use App\Http\Controllers\CategoryAdminController;
 use App\Http\Controllers\OrderAdminController;
+use App\Http\Controllers\ProductCommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -90,7 +91,16 @@ Route::middleware('auth:sanctum')
 
         Route::put('/{id}', [ProductController::class, 'updateProductApi'])->name('update');
 
-        Route::delete('/{id}', [ProductController::class, 'deleteProductApi'])->name('delete');
+        Route::delete('/{i}', [ProductController::class, 'deleteProductApi'])->name('delete');
+    });
+
+Route::middleware('auth:sanctum')
+    ->prefix('product-comments')
+    ->name('api.product_comments.')
+    ->group(function () {
+
+        Route::get('/', [ProductCommentController::class, 'listCommentsApi'])->name('list');
+        Route::patch('/{id}/toggle-hidden', [ProductCommentController::class, 'toggleHiddenApi'])->name('toggle_hidden');
     });
 
 Route::prefix('categories')

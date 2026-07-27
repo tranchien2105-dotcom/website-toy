@@ -54,7 +54,7 @@ class LayoutController extends Controller
 
     public function detailProduct($slug)
     {
-        $product = Product::with('category', 'images')->where('slug', $slug)->firstOrFail();
+        $product = Product::with('category', 'images', 'comments')->where('slug', $slug)->firstOrFail();
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->take(4)
@@ -65,7 +65,9 @@ class LayoutController extends Controller
             ->distinct()
             ->get();
 
-        return view('layouts.product_detail', compact('product', 'relatedProducts', 'categories'));
+        $comments = $product->comments()->where('is_hidden', false)->latest()->get();
+
+        return view('layouts.product_detail', compact('product', 'relatedProducts', 'categories', 'comments'));
     }
 
     public function checkout()

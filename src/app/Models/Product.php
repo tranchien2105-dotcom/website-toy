@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\OrderDetail;
+use App\Models\ProductComment;
 use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,6 +44,11 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ProductComment::class);
     }
 
     public function orderDetails()

@@ -603,6 +603,37 @@
             </div>
         </section>
 
+        <!-- Product comments -->
+        <section class="padding-top-40 padding-bottom-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading">
+                            <h2>Bình luận sản phẩm</h2>
+                        </div>
+                        @if(isset($comments) && $comments->count())
+                            <div class="comment-list">
+                                @foreach($comments as $comment)
+                                    <div class="comment-item mb-4 p-3 border rounded">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <strong>{{ $comment->name ?? 'Khách' }}</strong>
+                                                <span class="text-muted ms-2">{{ $comment->created_at->format('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <span class="badge bg-success">Hiển thị</span>
+                                        </div>
+                                        <p class="mb-0">{{ $comment->comment }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="text-muted">Chưa có bình luận nào.</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Clients img -->
         <section class="light-gry-bg clients-img">
             <div class="container">
