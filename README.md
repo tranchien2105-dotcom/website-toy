@@ -26,6 +26,17 @@ Dự án này là một ứng dụng web Laravel + Vue chạy trong Docker Compo
 - `src/package.json` - cấu hình frontend/Vite
 - `src/composer.json` - cấu hình PHP/Laravel
 
+## Những chức năng đã làm được
+
+- Quản lý sản phẩm (tạo, sửa, xóa, xem chi tiết)
+- Quản lý banner, danh mục, blog và đơn hàng trong admin
+- Quản lý comment sản phẩm với chức năng ẩn/hiện comment cho admin
+- Trang chi tiết sản phẩm đổ dữ liệu review/comment từ backend
+- Giao diện admin Vue 3 + Vite cho quản trị, dùng Vue Router, Pinia và Toast
+- Hệ thống đăng nhập admin và middleware auth
+- Kết nối backend Laravel với frontend Vue trên cùng dự án
+- Docker Compose đã cấu hình chạy PHP, Nginx, MySQL và Node/Vite
+
 ## Các service Docker
 
 - `app`: PHP-FPM, mount `./src:/var/www`
