@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductTemplateExport;
+use App\Imports\ProductImport;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -275,6 +279,28 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Xóa sản phẩm thành công'
+        ]);
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(
+            new ProductTemplateExport(),
+            'product_template.xlsx'
+        );
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls|max:5120'
+        ]);
+
+        Excel::import(new ProductImport(), $request->file('file'));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Import sản phẩm thành công.'
         ]);
     }
 }

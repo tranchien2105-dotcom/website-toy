@@ -78,30 +78,19 @@ Route::middleware('auth:sanctum')
     ->name('api.products.')
     ->group(function () {
 
-        Route::get(
-            '/',
-            [ProductController::class, 'listProductsApi']
-        )->name('list');
+        Route::get('/', [ProductController::class, 'listProductsApi'])->name('list');
 
-        Route::get(
-            '/{id}',
-            [ProductController::class, 'getProductApi']
-        )->name('show');
+        Route::post('/', [ProductController::class, 'createProductsApi'])->name('create');
 
-        Route::post(
-            '/',
-            [ProductController::class, 'createProductsApi']
-        )->name('create');
+        Route::post('/import', [ProductController::class, 'import']);
 
-        Route::put(
-            '/{id}',
-            [ProductController::class, 'updateProductApi']
-        )->name('update');
+        Route::get('/template', [ProductController::class, 'downloadTemplate']);
 
-        Route::delete(
-            '/{id}',
-            [ProductController::class, 'deleteProductApi']
-        )->name('delete');
+        Route::get('/{id}', [ProductController::class, 'getProductApi'])->name('show');
+
+        Route::put('/{id}', [ProductController::class, 'updateProductApi'])->name('update');
+
+        Route::delete('/{id}', [ProductController::class, 'deleteProductApi'])->name('delete');
     });
 
 Route::prefix('categories')

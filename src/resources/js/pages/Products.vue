@@ -17,6 +17,54 @@ const sortBy = ref('latest')
 
 const loading = ref(false)
 
+const uploadExcel = async (e) => {
+
+    const file = e.target.files[0]
+
+    if (!file) return
+
+    const form = new FormData()
+
+    form.append('file', file)
+
+    try {
+
+        await axios.post('/api/products/import', form, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
+        alert('Import thành công')
+
+    } catch (err) {
+
+        alert('Import thất bại')
+
+    }
+
+}
+
+const downloadTemplate = async () => {
+
+    const response = await axios.get(
+        '/api/products/template',
+        {
+            responseType: 'blob'
+        }
+    )
+
+    const url = window.URL.createObjectURL(new Blob([response.data]))
+
+    const link = document.createElement('a')
+
+    link.href = url
+
+    link.download = 'product_template.xlsx'
+
+    link.click()
+}
+
 /*
 |--------------------------------------------------------------------------
 | Get Products
@@ -144,6 +192,18 @@ onMounted(() => {
                     </h2>
 
                     <div class="actions">
+
+                        <div class="excel-actions">
+                            <input type="file" ref="fileInput" hidden @change="uploadExcel">
+
+                            <button class="btn btn-success" @click="$refs.fileInput.click()">
+                                📥 Import Excel
+                            </button>
+
+                            <button class="btn btn-primary" @click="downloadTemplate">
+                                📄 Download Template
+                            </button>
+                        </div>
 
                         <!-- Search -->
                         <input v-model="search" type="text" placeholder="Tìm sản phẩm..." class="search-input">
@@ -301,6 +361,46 @@ onMounted(() => {
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+}
+
+.excel-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.btn {
+    border: none;
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .25s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, .15);
+}
+
+.btn-success {
+    background: #16a34a;
+}
+
+.btn-success:hover {
+    background: #15803d;
+}
+
+.btn-primary {
+    background: #2563eb;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
 }
 
 .layout {
