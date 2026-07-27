@@ -31,7 +31,7 @@ Dự án này là một ứng dụng web Laravel + Vue chạy trong Docker Compo
 - Quản lý sản phẩm (tạo, sửa, xóa, xem chi tiết)
 - Quản lý banner, danh mục, blog và đơn hàng trong admin
 - Quản lý comment sản phẩm với chức năng ẩn/hiện comment cho admin
-- Trang chi tiết sản phẩm đổ dữ liệu review/comment từ backend
+- Trang chi tiết sản phẩm hiển thị comment và form gửi bình luận cho người dùng
 - Giao diện admin Vue 3 + Vite cho quản trị, dùng Vue Router, Pinia và Toast
 - Hệ thống đăng nhập admin và middleware auth
 - Kết nối backend Laravel với frontend Vue trên cùng dự án

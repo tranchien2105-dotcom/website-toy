@@ -63,6 +63,9 @@ Route::get('/dashboard', function () {
 Route::get('/search-suggestion', [LayoutController::class, 'searchSuggestion'])
     ->name('search.suggestion');
 
+Route::post('/products/{slug}/comment', [LayoutController::class, 'submitProductComment'])
+    ->name('layout.product.comment');
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])

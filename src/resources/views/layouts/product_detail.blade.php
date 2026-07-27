@@ -629,6 +629,45 @@
                         @else
                             <p class="text-muted">Chưa có bình luận nào.</p>
                         @endif
+
+                        <div class="mt-5">
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <div class="comment-form card p-4 mt-4">
+                                <h4>Gửi bình luận</h4>
+                                <form action="{{ route('layout.product.comment', $product->slug) }}" method="POST">
+                                    @csrf
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <input type="text" name="name" class="form-control" placeholder="Tên của bạn" value="{{ old('name') }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="email" name="email" class="form-control" placeholder="Email (không bắt buộc)" value="{{ old('email') }}">
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea name="comment" rows="5" class="form-control" placeholder="Nội dung bình luận">{{ old('comment') }}</textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

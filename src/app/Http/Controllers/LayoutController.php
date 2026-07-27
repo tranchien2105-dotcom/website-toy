@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\ProductComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -68,6 +69,30 @@ class LayoutController extends Controller
         $comments = $product->comments()->where('is_hidden', false)->latest()->get();
 
         return view('layouts.product_detail', compact('product', 'relatedProducts', 'categories', 'comments'));
+    }
+
+    public function submitProductComment(Request $request, $slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+
+        $user = auth()->user();
+
+        $data = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'comment' => 'required|string',
+        ]);
+
+        ProductComment::create([
+            'product_id' => $product->id,
+            'user_id' => $user ? $user->id : null,
+            'name' => $data['name'] ?? ($user?->name ?? 'Khách'),
+            'email' => $data['email'] ?? ($user?->email ?? null),
+            'comment' => $data['comment'],
+            'is_hidden' => false,
+        ]);
+
+        return back()->with('success', 'Cảm ơn bạn đã gửi bình luận.');
     }
 
     public function checkout()
