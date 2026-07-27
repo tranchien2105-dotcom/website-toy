@@ -17,6 +17,7 @@ import CategoryDetail from '../pages/CategoryDetail.vue'
 import Blogs from '../pages/Blogs.vue'
 import AddBlog from '../pages/AddBlog.vue'
 import BlogDetail from '../pages/BlogDetail.vue'
+import ProductComments from '../pages/ProductComments.vue'
 import Settings from '../pages/Settings.vue'
 
 const routes = [
@@ -47,6 +48,11 @@ const routes = [
             {
                 path: 'products/:id',
                 component: ProductDetail,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'product-comments',
+                component: ProductComments,
                 meta: { requiresAuth: true }
             },
             {

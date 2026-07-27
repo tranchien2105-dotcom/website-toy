@@ -50,6 +50,10 @@
                     🖼️ <span v-if="!isCollapsed">Banners</span>
                 </router-link>
 
+                <router-link to="/product-comments">
+                    💬 <span v-if="!isCollapsed">Product Comments</span>
+                </router-link>
+
                 <router-link to="/orders">
                     📄 <span v-if="!isCollapsed">Orders</span>
                 </router-link>
