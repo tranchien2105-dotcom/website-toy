@@ -1,0 +1,74 @@
+name: Laravel
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: mbstring, pdo_sqlite, sqlite3
+          coverage: none
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+
+      - name: Copy .env
+        working-directory: ./src
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install Composer Dependencies
+        working-directory: ./src
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Install Node Dependencies
+        working-directory: ./src
+        run: npm ci
+
+      - name: Build Vite Assets
+        working-directory: ./src
+        run: npm run build
+
+      - name: Generate Application Key
+        working-directory: ./src
+        run: php artisan key:generate
+
+      - name: Set Directory Permissions
+        working-directory: ./src
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: Create SQLite Database
+        working-directory: ./src
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      - name: Run Migrations
+        working-directory: ./src
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan migrate --force
+
+      - name: Execute Tests
+        working-directory: ./src
+        env:
+          APP_ENV: testing
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan test
