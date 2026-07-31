@@ -2,9 +2,9 @@ name: Laravel
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   laravel-tests:
@@ -21,13 +21,28 @@ jobs:
           extensions: mbstring, pdo_sqlite, sqlite3
           coverage: none
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/package-lock.json
+
       - name: Copy .env
         working-directory: ./src
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Install Dependencies
+      - name: Install Composer Dependencies
         working-directory: ./src
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Install Node Dependencies
+        working-directory: ./src
+        run: npm ci
+
+      - name: Build Vite Assets
+        working-directory: ./src
+        run: npm run build
 
       - name: Generate Application Key
         working-directory: ./src
