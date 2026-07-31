@@ -32,10 +32,10 @@
     <style>
         :root {
             --primary:
-                {{ $setting->primary_color }}
+                {{ $setting?->primary_color }}
             ;
             --secondary:
-                {{ $setting->secondary_color }}
+                {{ $setting?->secondary_color }}
             ;
         }
     </style>
@@ -319,7 +319,7 @@
                     <!-- NAV RIGHT -->
                     <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i>
                             <strong>{{ __('messages.phone') }}:</strong>
-                            {{ $setting->phone }}</span> </div>
+                            {{ $setting?->phone }}</span> </div>
                 </div>
             </nav>
         </header>
@@ -357,8 +357,8 @@
                     <div class="col-md-4">
                         <h4>{{ __('messages.contact_us') }}</h4>
                         <p>{{ __('messages.address') }}: 102/46 Hồ Biểu Chánh, Phường 11, Quận Phú Nhuận, TP.HCM</p>
-                        <p>{{ __('messages.phone') }}: {{ $setting->phone }}</p>
-                        <p>{{ __('messages.email') }}: {{ $setting->email }}</p>
+                        <p>{{ __('messages.phone') }}: {{ $setting?->phone }}</p>
+                        <p>{{ __('messages.email') }}: {{ $setting?->email }}</p>
                         <div class="social-links"> <a href="#."><i class="fa fa-facebook"></i></a> <a href="#."><i
                                     class="fa fa-twitter"></i></a> <a href="#."><i class="fa fa-linkedin"></i></a> <a
                                 href="#."><i class="fa fa-pinterest"></i></a> <a href="#."><i
@@ -416,7 +416,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p> {{ $setting->copyright }} <a href="#." class="ri-li"> {{ $setting->site_name }}</a></p>
+                        <p> {{ $setting?->copyright }} <a href="#." class="ri-li"> {{ $setting?->site_name }}</a></p>
                     </div>
                     <div class="col-sm-6 text-right"> <img src="{{ asset('layout/images/card-icon.png') }}" alt="">
                     </div>
