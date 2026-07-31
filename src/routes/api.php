@@ -94,6 +94,7 @@ Route::middleware('auth:sanctum')
         Route::delete('/{i}', [ProductController::class, 'deleteProductApi'])->name('delete');
     });
 
+    
 Route::middleware('auth:sanctum')
     ->prefix('product-comments')
     ->name('api.product_comments.')
